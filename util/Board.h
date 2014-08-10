@@ -105,7 +105,7 @@ void MakeMove(Board board, Position from, Position to);
 //  - board. The board we're getting the array representation of.
 //
 // Returns the array representation of the passed board.
-Piece[][] GetArrayRepresentation(Board board);
+Piece[][] GetPieces(Board board);
 
 
 /* There should be bitboard support here, too. All in good time... */
