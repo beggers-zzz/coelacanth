@@ -21,6 +21,13 @@ A Board represents the full state of the chess game.
 typedef uint64_t Piece;
 
 
+// Board positions
+typedef struct boardPos {
+    int     row;  // 1-8
+    char    col;  // a-h
+} Position;
+
+
 // The Board itself.
 struct boardRec;
 typedef struct boardRec *Board;
@@ -39,17 +46,15 @@ Board AllocateBoard();
 void FreeBoard(Board board);
 
 
-// Get the piece at the given position. a1 -> 1, a2 -> 2, ..., c3 -> 19,
-// ..., h8 -> 64. 
+// Get the piece at the given position. 
 //
 // Parameters:
 //
 //  - board. The board we're looking at.
-//  - position. The position we want to examine. a1 -> 1, ..., c3 -> 19, ...,
-//    h8 -> 64.
+//  - position. The position at which to get the piece.
 //
 // Returns a Piece on success, 0 on failure.
-Piece GetPiece(Board board, int position);
+Piece GetPiece(Board board, Position position);
 
 
 // Check whether a move is legal, i.e. whether the piece at the first
@@ -58,12 +63,12 @@ Piece GetPiece(Board board, int position);
 // Arguments:
 //
 //  - board. The board we're querying.
-//  - from. The square we're trying to move from. Should be an int 1-64.
-//  - to. The square we're moving to. Should be an int 1-64.
+//  - from. The square we're trying to move from.
+//  - to. The square we're moving to.
 //
 // Returns true if the move is possible, false otherwise (no piece at "from",
 // either position is invalid, etc).
-bool IsLegal(Board board, int from, int to);
+bool IsLegal(Board board, Position from, Position to);
 
 
 // Set the Piece to which promoted pawns should change. Defaults to queen, so
@@ -82,27 +87,25 @@ void SetPromoPiece(Board board, Piece piece);
 // Arguments:
 //
 //  - board. The board we're moving on.
-//  - from. the square we're trying to move from. Should be an int 1-64.
-//  - to. The square we're moving to. Should be an int 1-64.
+//  - from. the square we're trying to move from.
+//  - to. The square we're moving to.
 //
 // This function does no logic checking, so it's
 // a good idea to use IsLegal() before you call it. Won't work if either of the
 // position arguments doesn't make sense.  If the move is a pawn promotion, the
 // pawn will change into the Piece last passed to SetPromoPiece() defaulting
 // to a queen.
-void MakeMove(Board board, int from, int to);
+void MakeMove(Board board, Position from, Position to);
 
 
-// Get an array of pieces representing the board. The element at the first
-// index will be the piece at a1 (or empty), the second element will be the
-// piece at a2, and so on until the 64th element will be the piece at h8.
+// Get an array of pieces representing the board. 
 //
 // Arguments:
 //
 //  - board. The board we're getting the array representation of.
 //
 // Returns the array representation of the passed board.
-Piece[] GetArrayRepresentation(Board board);
+Piece[][] GetArrayRepresentation(Board board);
 
 
 /* There should be bitboard support here, too. All in good time... */
