@@ -7,7 +7,7 @@ This file contains the implementation of structs found in "Board.h".
 
 */
 
-#idndef _BEGGERS_BOARD_PRIV_
+#ifndef _BEGGERS_BOARD_PRIV_
 #define _BEGGERS_BOARD_PRIV_
 
 #include "./Board.h"  // for Board
@@ -19,7 +19,7 @@ typedef struct boardRec {
     bool        blackCastle;  // can black castle?
     int         enPassant;    // position of pawn that can currently en passant
     Piece       promo;        // what should we promote pawns to?
-    Piece[][]   pieces;       // all that other stuff
+    Piece       pieces[64];   // all that other stuff
 } BoardRec;
 
 

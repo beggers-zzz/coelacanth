@@ -18,7 +18,7 @@ A Board represents the full state of the chess game.
 // 8 a rook, 16 a queen, and 32 a king. The second-highest-order bit is
 // whether the piece is White (true means white), and the highest-order
 // bit is meaningless.
-typedef uint64_t Piece;
+typedef uint8_t Piece;
 
 
 // Board positions
@@ -105,7 +105,7 @@ void MakeMove(Board board, Position from, Position to);
 //  - board. The board we're getting the array representation of.
 //
 // Returns the array representation of the passed board.
-Piece[][] GetPieces(Board board);
+Piece *GetPieces(Board board);
 
 
 /* There should be bitboard support here, too. All in good time... */
