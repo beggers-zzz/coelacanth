@@ -32,7 +32,6 @@ int main(int argc, char **argv) {
         printf("\nNext move?:\n");
         fgets(input, 10, stdin);
         validIn = parseMove(input, &from, &to);
-        printf("Was that valid? %d\n", validIn);
         if (validIn) {
             MakeMove(b, from, to);
         } else {
