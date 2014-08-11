@@ -30,7 +30,7 @@ Board AllocateBoard() {
     b->blackCastle = true;
     b->enPassant = 0;
     b->promo = 0x50;
-    Piece ini = {0x08, 0x02, 0x04, 0x10, 0x20, 0x04, 0x02, 0x08,
+    Piece ini[64] = {0x08, 0x02, 0x04, 0x10, 0x20, 0x04, 0x02, 0x08,
                 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
                 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
                 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -83,6 +83,11 @@ void PrintBoard(Board board) {
 
     ps = board->pieces;
     for (int i = 0; i < 64; i++) {
+
+        if (i % 8 == 0) {
+            printf("\n");
+        }
+
         p = ps[i];
         if (p & 0x01) {
             c = 'p';
@@ -106,10 +111,8 @@ void PrintBoard(Board board) {
 
         printf("%c ", c);
 
-        if (i % 8 == 0) {
-            printf("\n");
-        }
     }
+    printf("\n");
 }
 
 
