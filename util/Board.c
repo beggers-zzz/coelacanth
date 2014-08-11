@@ -66,6 +66,9 @@ void SetPromoPiece(Board board, Piece piece) {
 
 
 void MakeMove(Board b, Position from, Position to) {
+    printf("%d(%c%d) -> %d(%c%d)\n", ifp(from), from.col, from.row, ifp(to), to.col, to.row);
+    printf("Piece at from: %c\n", b->pieces[ifp(from)]);
+    printf("Piece at to: %c\n", b->pieces[ifp(to)]);
     b->pieces[ifp(to)] = b->pieces[ifp(from)];
     b->pieces[ifp(from)] = 0;
 }
@@ -117,5 +120,5 @@ void PrintBoard(Board board) {
 
 
 static int ifp(Position p) {
-    return 8*(8 - p.col) + (p.row - 'a');
+    return 8*(8 - p.row) + (p.col - 'a');
 }
