@@ -1,6 +1,6 @@
 CC = gcc
 
-CFLAGS += -g -Wall -std=gnu99 -Wpedantic -O2
+CFLAGS += -g -Wall -std=gnu99 -Wpedantic -O5
 
 all: main
 
