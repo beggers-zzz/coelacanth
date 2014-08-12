@@ -12,8 +12,8 @@ Implementation of the board specification found in "Board.h".
 #include <stdbool.h>
 #include <string.h>
 
-#include "Board.h"
-#include "Board_priv.h"
+#include "./Board.h"
+#include "./Board_priv.h"
 
 
 // Get the array index corresponding to the passed Position.
