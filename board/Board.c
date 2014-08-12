@@ -55,7 +55,7 @@ Piece GetPiece(Board board, Position pos) {
 }
 
 
-bool IsLegal(Board board, Position from, Position to) {
+bool IsMoveLegal(Board board, Position from, Position to) {
     return true;  // for now
 }
 
@@ -66,9 +66,6 @@ void SetPromoPiece(Board board, Piece piece) {
 
 
 void MakeMove(Board b, Position from, Position to) {
-    printf("%d(%c%d) -> %d(%c%d)\n", ifp(from), from.col, from.row, ifp(to), to.col, to.row);
-    printf("Piece at from: %c\n", b->pieces[ifp(from)]);
-    printf("Piece at to: %c\n", b->pieces[ifp(to)]);
     b->pieces[ifp(to)] = b->pieces[ifp(from)];
     b->pieces[ifp(from)] = 0;
 }

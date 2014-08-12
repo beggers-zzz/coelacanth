@@ -68,7 +68,7 @@ Piece GetPiece(Board board, Position position);
 //
 // Returns true if the move is possible, false otherwise (no piece at "from",
 // either position is invalid, etc).
-bool IsLegal(Board board, Position from, Position to);
+bool IsMoveLegal(Board board, Position from, Position to);
 
 
 // Set the Piece to which promoted pawns should change. Defaults to queen, so
@@ -91,10 +91,7 @@ void SetPromoPiece(Board board, Piece piece);
 //  - to. The square we're moving to.
 //
 // This function does no logic checking, so it's
-// a good idea to use IsLegal() before you call it. Won't work if either of the
-// position arguments doesn't make sense.  If the move is a pawn promotion, the
-// pawn will change into the Piece last passed to SetPromoPiece() defaulting
-// to a queen.
+// a good idea to use IsMoveLegal() before you call it. 
 void MakeMove(Board board, Position from, Position to);
 
 
@@ -106,9 +103,6 @@ void MakeMove(Board board, Position from, Position to);
 //
 // Returns the array representation of the passed board.
 Piece *GetPieces(Board board);
-
-
-/* There should be bitboard support here, too. All in good time... */
 
 
 // Print the board. Empty squares will be represented by "."
