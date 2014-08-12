@@ -1,16 +1,29 @@
 CC = gcc
 
 CFLAGS += -g -Wall -std=gnu99 -Wpedantic -O5
+LDFLAGS = -Lstatic -lglobals
+
+
+DIRS = board static core
+
+
 
 all: coelacanth
 
-coelacanth: Board.o board/Board.h
-	$(CC) $(CFLAGS) -o coelacanth board/Board.o core/coelacanth.c
+coelacanth: Board.o Coelacanth.o libglobals.a
+	$(CC) $(CFLAGS) -o coelacanth board/Board.o core/Coelacanth.o $(LDFLAGS)
 
-Board.o: board/Board.c board/Board.h board/Board_priv.h
-	$(CC) $(CFLAGS) -c -o board/Board.o board/Board.c
+Board.o: FORCE
+	$(MAKE) -C board
+
+Coelacanth.o: FORCE
+	$(MAKE) -C core
+
+libglobals.a: FORCE
+	$(MAKE) -C static
 
 clean: FORCE
-	/bin/rm -f board/Board.o board/Board.h.gch board/Board_priv.h.gch coelacanth
+	/bin/rm -f coelacanth
+	for d in $(DIRS); do (cd $$d && $(MAKE) clean); done
 
 FORCE:
