@@ -7,7 +7,7 @@ OBJS = Board.o
 
 all: Board.o FORCE
 
-%.o: %.c $(HEADERS) FORCE
+%.o: %.c $(HEADERS)
 	$(CC) $(CFLAGS) -c $<
 
 clean: FORCE

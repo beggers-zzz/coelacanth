@@ -13,13 +13,13 @@ all: coelacanth
 coelacanth: Board.o Coelacanth.o libglobals.a
 	$(CC) $(CFLAGS) -o coelacanth board/Board.o core/Coelacanth.o $(LDFLAGS)
 
-Board.o: FORCE
+Board.o: 
 	$(MAKE) -C board
 
-Coelacanth.o: FORCE
+Coelacanth.o:
 	$(MAKE) -C core
 
-libglobals.a: FORCE
+libglobals.a:
 	$(MAKE) -C static
 
 clean: FORCE

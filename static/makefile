@@ -7,10 +7,12 @@ CFLAGS = -g -Wall -std=gnu99 -Wpedantic -O5
 HEADERS = globals.h init_board.h
 OBJS = init_board.o
 
-libglobals.a: $(OBJS) $(HEADERS) FORCE
+all: libglobals.a
+
+libglobals.a: $(OBJS) $(HEADERS) 
 	$(AR) $(ARFLAGS) libglobals.a $(OBJS)
 
-%.o: %.c $(HEADERS) FORCE
+%.o: %.c $(HEADERS)
 	$(CC) $(CFLAGS) -c $<
 
 clean: FORCE
