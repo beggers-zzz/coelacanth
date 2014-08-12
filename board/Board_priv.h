@@ -19,8 +19,8 @@ typedef struct boardRec {
     bool        blackCastle;  // can black castle?
     int         enPassant;    // position of pawn that can currently en passant
     int         quietMoves;   // number of quiet moves made in a row
-    Piece       promo;        // what should we promote pawns to?
-    Piece       pieces[64];   // all that other stuff
+    char       promo;        // what should we promote pawns to?
+    char       pieces[64];   // all that other stuff
 } BoardRec;
 
 

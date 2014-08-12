@@ -14,13 +14,6 @@ A Board represents the full state of the chess game.
 #include <stdbool.h>
 
 
-// Piece representation -- 8 bits. 1 is a pawn, 2 a knight, 4 a bishop,
-// 8 a rook, 16 a queen, and 32 a king. The second-highest-order bit is
-// whether the piece is White (true means white), and the highest-order
-// bit is meaningless.
-typedef uint8_t Piece;
-
-
 // Board positions
 typedef struct boardPos {
     int     row;  // 1-8
@@ -53,8 +46,8 @@ void FreeBoard(Board board);
 //  - board. The board we're looking at.
 //  - position. The position at which to get the piece.
 //
-// Returns a Piece on success, 0 on failure.
-Piece GetPiece(Board board, Position position);
+// Returns a char on success, 0 on failure.
+char Getchar(Board board, Position position);
 
 
 // Check whether a move is legal, i.e. whether the piece at the first
@@ -71,7 +64,7 @@ Piece GetPiece(Board board, Position position);
 bool IsMoveLegal(Board board, Position from, Position to);
 
 
-// Set the Piece to which promoted pawns should change. Defaults to queen, so
+// Set the char to which promoted pawns should change. Defaults to queen, so
 // you only need to call this if you plan on promoting a pawn to something
 // other than a queen (or want a queen but just did a different promotion).
 //
@@ -79,7 +72,7 @@ bool IsMoveLegal(Board board, Position from, Position to);
 //
 //  - board. The board to set piece promotion on.
 //  - piece. The piece that pawns should be promoted to.
-void SetPromoPiece(Board board, Piece piece);
+void SetPromochar(Board board, char piece);
 
 
 // Move a piece from one position to another.
@@ -102,7 +95,7 @@ void MakeMove(Board board, Position from, Position to);
 //  - board. The board we're getting the array representation of.
 //
 // Returns the array representation of the passed board.
-Piece *GetPieces(Board board);
+char *Getchars(Board board);
 
 
 // Print the board. Empty squares will be represented by "."

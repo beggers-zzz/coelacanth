@@ -14,6 +14,7 @@ Implementation of the board specification found in "Board.h".
 
 #include "./Board.h"
 #include "./Board_priv.h"
+#include "../static/globals.h"
 
 
 // Get the array index corresponding to the passed Position.
@@ -29,17 +30,10 @@ Board AllocateBoard() {
     b->whiteCastle = true;
     b->blackCastle = true;
     b->enPassant = 0;
-    b->promo = 0x50;
-    Piece ini[64] = {0x08, 0x02, 0x04, 0x10, 0x20, 0x04, 0x02, 0x08,
-                0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
-                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-                0x41, 0x41, 0x41, 0x41, 0x41, 0x41, 0x41, 0x41,
-                0x48, 0x42, 0x44, 0x50, 0x60, 0x44, 0x42, 0x48};
+    b->promo = 'q';
+    b->quietMoves = 0;
 
-    memcpy(&b->pieces, &ini, sizeof(b->pieces));
+    memcpy(&b->pieces, &INIT_BOARD, sizeof(b->pieces));
 
     return b;
 }
@@ -50,7 +44,7 @@ void FreeBoard(Board board) {
 }
 
 
-Piece GetPiece(Board board, Position pos) {
+char Getchar(Board board, Position pos) {
     return board->pieces[ifp(pos)];
 }
 
@@ -60,7 +54,7 @@ bool IsMoveLegal(Board board, Position from, Position to) {
 }
 
 
-void SetPromoPiece(Board board, Piece piece) {
+void SetPromochar(Board board, char piece) {
     board->promo = piece;
 }
 
@@ -71,45 +65,23 @@ void MakeMove(Board b, Position from, Position to) {
 }
 
 
-Piece *GetPieces(Board board) {
+char *Getchars(Board board) {
     return board->pieces;
 }
 
 
 void PrintBoard(Board board) {
-    Piece *ps;
-    Piece p;
-    char c;
+    char *ps;
+    int i;
 
     ps = board->pieces;
-    for (int i = 0; i < 64; i++) {
+    for (i = 0; i < 64; i++) {
 
         if (i % 8 == 0) {
             printf("\n");
         }
 
-        p = ps[i];
-        if (p & 0x01) {
-            c = 'p';
-        } else if (p & 0x02) {
-            c = 'n';
-        } else if (p & 0x04) {
-            c = 'b';
-        } else if (p & 0x08) {
-            c = 'r';
-        } else if (p & 0x10) {
-            c = 'q';
-        } else if (p & 0x20) {
-            c = 'k';
-        } else {
-            c = '.';
-        }
-
-        if (p & 0x40) {
-            c = c - 32;
-        }
-
-        printf("%c ", c);
+        printf("%c ", ps[i]);
 
     }
     printf("\n");
