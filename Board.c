@@ -14,7 +14,7 @@ Implementation of the board specification found in "Board.h".
 
 #include "./Board.h"
 #include "./Board_priv.h"
-#include "../static/globals.h"
+#include "./static/globals.h"
 
 
 // Get the array index corresponding to the passed Position.
