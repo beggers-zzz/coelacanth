@@ -1,5 +1,18 @@
-This is going to be an informal documentation of design decisions and their rationales. I have no plans for this document, it's just nice to have a place to put down thoughts about the code.
+This is going to be an informal documentation of design decisions and their 
+rationales. I have no plans for this document, it's just nice to have a 
+place to put down thoughts about the code.
 
-One assumption that's built into the design is that for a board's array representation, a1 -> 0, a2 -> 1, c3 -> 18, etc. This isn't explicitly written anywhere, because I could'nt think of a good way to do it. I think the only places that depend on that assumption are INIT_BOARD_A (in static/init_board.c) and ifp, the function in Board.c to get an array index from a Position struct. That's not too bad IMO.
+One assumption that's built into the design is that for a board's array 
+representation, a1 -> 0, a2 -> 1, c3 -> 18, etc. This isn't explicitly written 
+anywhere, because I could'nt think of a good way to do it. I think the only 
+places that depend on that assumption are INIT_BOARD_A
+(in static/init_board.c) and ifp, the function in Board.c to get an array 
+index from a Position struct. That's not too bad IMO.
 
-As far as other design decisions, I really don't know enough about software architecture to be able to back them up well (but that's the point, right?). I think having Board, Brain, and Coelacanth in the same directory makes sense since they're one piece of functionality per file, but static/ kind of makes me nervous as of now. I don't have a good enough grasp on what's needed by both Board and Brain (all the alliteration, said Alice), though, so I'll keep it as-is and be ready to change if necessary.
+As far as other design decisions, I really don't know enough about software 
+architecture to be able to back them up well (but that's the point, right?). 
+I think having Board, Brain, and Coelacanth in the same directory makes 
+sense since they're one piece of functionality per file, but static/ kind 
+of makes me nervous as of now. I don't have a good enough grasp on what's 
+needed by both Board and Brain (all the alliteration, said Alice), though, 
+so I'll keep it as-is and be ready to change if necessary.
