@@ -4,7 +4,7 @@ AR = ar
 ARFLAGS = rcs
 CFLAGS = -g -Wall -std=gnu99 -Wpedantic -O5
 
-HEADERS = globals.h init_board.h
+HEADERS = globals.h init_board.h bitboard.h
 OBJS = init_board.o
 
 all: libglobals.a

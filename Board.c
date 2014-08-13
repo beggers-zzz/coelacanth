@@ -33,7 +33,7 @@ Board AllocateBoard() {
     b->promo = 'q';
     b->quietMoves = 0;
 
-    memcpy(&b->pieces, &INIT_BOARD, sizeof(b->pieces));
+    memcpy(&b->pieces, &INIT_BOARD_A, sizeof(b->pieces));
 
     return b;
 }
@@ -44,14 +44,13 @@ void FreeBoard(Board board) {
 }
 
 
-char Getchar(Board board, Position pos) {
+char GetPiece(Board board, Position pos) {
     return board->pieces[ifp(pos)];
 }
 
 
 bool IsMoveLegal(Board board, Position from, Position to) {
-    return from.col >= 'a' && from.col <= 'h' &&
-            to.col >= 'a' && to.col <= 'h';
+    return true;  // for now
 }
 
 
@@ -66,29 +65,30 @@ void MakeMove(Board b, Position from, Position to) {
 }
 
 
-char *Getchars(Board board) {
+const char *GetArrayRep(Board board) {
     return board->pieces;
 }
 
 
 void PrintBoard(Board board) {
     char *ps;
+    Position p;
     int i;
+    char j;
 
     ps = board->pieces;
-    for (i = 0; i < 64; i++) {
-
-        if (i % 8 == 0) {
-            printf("\n");
+    for (i = 8; i > 0; i--) {
+        for (j = 'a'; j <= 'h'; j++) {
+            p.row = i;
+            p.col = j;
+            printf("%c ", ps[ifp(p)]);
         }
-
-        printf("%c ", ps[i]);
-
+        printf("\n");
     }
     printf("\n");
 }
 
 
 static int ifp(Position p) {
-    return 8*(8 - p.row) + (p.col - 'a');
+    return 8*(p.row - 1) + (p.col - 'a');
 }

@@ -10,6 +10,9 @@ Header for the initial board layout.
 #ifndef _CEOLACANTH_INIT_BOARD_
 #define _CEOLACANTH_INIT_BOARD_
 
-extern char INIT_BOARD[];
+#include "./bitboard.h"
+
+extern const char INIT_BOARD_A[];
+extern const bbrep_t INIT_BOARD_BBREP;
 
 #endif

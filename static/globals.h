@@ -11,5 +11,6 @@ Global constants, such as the initial board layout.
 #define _COELACANTH_STATIC_GLOBALS_
 
 #include "./init_board.h"
+#include "./bitboard.h"
 
 #endif // _COELACANTH_STATIC_GLOBALS

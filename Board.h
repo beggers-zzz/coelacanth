@@ -47,7 +47,7 @@ void FreeBoard(Board board);
 //  - position. The position at which to get the piece.
 //
 // Returns a char on success, 0 on failure.
-char Getchar(Board board, Position position);
+char GetPiece(Board board, Position position);
 
 
 // Check whether a move is legal, i.e. whether the piece at the first
@@ -95,7 +95,7 @@ void MakeMove(Board board, Position from, Position to);
 //  - board. The board we're getting the array representation of.
 //
 // Returns the array representation of the passed board.
-char *Getchars(Board board);
+const char *GetArrayRep(Board board);
 
 
 // Print the board. Empty squares will be represented by "."
