@@ -50,7 +50,8 @@ char Getchar(Board board, Position pos) {
 
 
 bool IsMoveLegal(Board board, Position from, Position to) {
-    return true;  // for now
+    return from.col >= 'a' && from.col <= 'h' &&
+            to.col >= 'a' && to.col <= 'h';
 }
 
 
@@ -61,7 +62,7 @@ void SetPromochar(Board board, char piece) {
 
 void MakeMove(Board b, Position from, Position to) {
     b->pieces[ifp(to)] = b->pieces[ifp(from)];
-    b->pieces[ifp(from)] = 0;
+    b->pieces[ifp(from)] = '.';
 }
 
 
