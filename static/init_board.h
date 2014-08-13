@@ -12,7 +12,7 @@ Header for the initial board layout.
 
 #include "./bitboard.h"
 
-extern const char INIT_BOARD_A[];
+extern const char INIT_BOARD_A[64];
 extern const bbrep_t INIT_BOARD_BBREP;
 
 #endif

@@ -16,18 +16,18 @@ typedef uint64_t bb_t;  // just a bitboard
 typedef bb_t bbrep_t[12];  // full board rep
 
 // Array indices for bitboards
-#define wPawn 0
-#define bPawn 1
-#define wKnight 2
-#define bKnight 3
-#define wBishop 4
-#define bBishop 5
-#define wRook 6
-#define bRook 7
-#define wQueen 8
-#define bQueen 9
-#define wKing 10
-#define bKing 11
+#define wPawnBMap 0
+#define bPawnBMap 1
+#define wKnightBMap 2
+#define bKnightBMap 3
+#define wBishopBMap 4
+#define bBishopBMap 5
+#define wRookBMap 6
+#define bRookBMap 7
+#define wQueenBMap 8
+#define bQueenBMap 9
+#define wKingBMap 10
+#define bKingBMap 11
 
 
 #endif // _COELACANTH_BITBOARD_
