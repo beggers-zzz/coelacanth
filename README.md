@@ -18,6 +18,7 @@ Here's the (tentative) layout:
   - `Board{.c, .h, _priv.h}` contain the Board model, and associated functions.
   - `Brain{.c, .h, _priv.h}` (TODO): contain the actual move-search logic.
   - `Coelacanth.c` contains the main function.
+  - `scripts/`: helpful scripts that aren't part of the finished program (e.g. bitboard generation)
   - `static/`: contains global constants, such as the initial board configuration, pre-computed bitboards of what pieces can attack from where, etc. This may be refactored out.
   - `test/` (TODO): tests.
   - `ui/` (TODO): tentative, if I end up building a GUI.
