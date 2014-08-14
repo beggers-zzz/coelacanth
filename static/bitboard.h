@@ -13,7 +13,6 @@ Contains the bitboard and other relevant declarations.
 #include <stdint.h>  // for uint64_t
 
 typedef uint64_t bb_t;  // just a bitboard
-typedef bb_t bbrep_t[12];  // full board rep
 
 // Array indices for bitboards
 #define wPawnBMap 0

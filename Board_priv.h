@@ -21,8 +21,8 @@ typedef struct boardRec {
     int        enPassant;    // position of pawn that can currently en passant
     int        quietMoves;   // number of quiet moves made in a row
     char       promo;        // what should we promote pawns to?
-    /* SOMETHING ABOUT REPETITION OF POSITION PL0X */
-    bbrep_t    bbs;          // our bitboards
+    // TODO: RoP hash
+    bb_t       bbs[12];      // our bitboards
     char       pieces[64];   // our piece array
 } BoardRec;
 

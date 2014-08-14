@@ -34,7 +34,7 @@ Board AllocateBoard() {
     b->quietMoves = 0;
     // TODO: RoP hash
 
-    memcpy(&b->bbs, &INIT_BOARD_BBREP, sizeof(bbrep_t));
+    memcpy(&b->bbs, &INIT_BOARD_BBREP, 12 * sizeof(bb_t));
     memcpy(&b->pieces, &INIT_BOARD_A, sizeof(b->pieces));
 
     return b;
@@ -85,6 +85,9 @@ const char *GetArrayRep(Board board) {
     return board->pieces;
 }
 
+const bb_t *GetBBRep(Board board) {
+    return board->bbs;
+}
 
 void PrintBoard(Board board) {
     char *ps;

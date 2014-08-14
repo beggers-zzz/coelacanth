@@ -13,6 +13,7 @@ A Board represents the full state of the chess game.
 #include <stdint.h>  // for uint64_t
 #include <stdbool.h>
 
+#include "./static/globals.h"  // for bb_t
 
 // Board positions
 typedef struct boardPos {
@@ -26,8 +27,8 @@ struct boardRec;
 typedef struct boardRec *Board;
 
 
-// Allocate and return a new Board, in the standard starting position. Returns
-// NULL on failure, the starting Board on success.
+// Allocate and return a new Board, in the standard starting position.
+// Returns NULL on failure, the starting Board on success.
 Board AllocateBoard();
 
 
@@ -83,9 +84,6 @@ void SetPromochar(Board board, char piece);
 //  - from. the square we're trying to move from.
 //  - to. The square we're moving to.
 //
-// This function does no logic checking, so it's
-// a good idea to use IsMoveLegal() before you call it. 
-//
 // Returns true if the move was made, false if not (because it was illegal).
 bool MakeMove(Board board, Position from, Position to);
 
@@ -99,7 +97,14 @@ bool MakeMove(Board board, Position from, Position to);
 // Returns the array representation of the passed board.
 const char *GetArrayRep(Board board);
 
-// TODO: BB rep
+// Get the bitboard representation of the board.
+//
+// Arguments:
+//
+//  - board. The board we're getting the representation of.
+//
+// Returns the bb_t[] representation of the board.
+const bb_t *GetBBRep(Board board);
 
 // Print the board. Empty squares will be represented by "."
 //
