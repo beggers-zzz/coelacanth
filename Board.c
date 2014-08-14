@@ -32,7 +32,9 @@ Board AllocateBoard() {
     b->enPassant = 0;
     b->promo = 'q';
     b->quietMoves = 0;
+    // TODO: RoP hash
 
+    memcpy(&b->bbs, &INIT_BOARD_BBREP, sizeof(bbrep_t));
     memcpy(&b->pieces, &INIT_BOARD_A, sizeof(b->pieces));
 
     return b;
@@ -51,6 +53,9 @@ char GetPiece(Board board, Position pos) {
 
 bool IsMoveLegal(Board board, Position from, Position to) {
     return true;  // for now
+    // TODO: Make sure we're not moving onto our own piece
+    //       Make sure that's how we can move
+    //       Check if we'd be in check
 }
 
 
@@ -59,9 +64,20 @@ void SetPromochar(Board board, char piece) {
 }
 
 
-void MakeMove(Board b, Position from, Position to) {
+bool MakeMove(Board b, Position from, Position to) {
+    if (!IsMoveLegal(b, from, to)) {
+        return false;
+    }
+
     b->pieces[ifp(to)] = b->pieces[ifp(from)];
     b->pieces[ifp(from)] = '.';
+    // TODO: BB changes and stuff
+    // TODO: Castling rights changes
+    // TODO: EP changes
+    // TODO: Promotion
+    // TODO: RoP hash
+    // TODO: quiet move?
+    return true;
 }
 
 

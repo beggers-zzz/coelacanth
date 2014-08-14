@@ -20,7 +20,7 @@ const char INIT_BOARD_A[64] = {
                                'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'
                               };
 
-const bbrep_t INIT_BOARD_BB = {
+const bbrep_t INIT_BOARD_BBREP = {
                                 0x000000000000ff00,
                                 0x00ff000000000000,
                                 0x0000000000000042,

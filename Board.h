@@ -85,7 +85,9 @@ void SetPromochar(Board board, char piece);
 //
 // This function does no logic checking, so it's
 // a good idea to use IsMoveLegal() before you call it. 
-void MakeMove(Board board, Position from, Position to);
+//
+// Returns true if the move was made, false if not (because it was illegal).
+bool MakeMove(Board board, Position from, Position to);
 
 
 // Get an array of pieces representing the board. 
@@ -97,6 +99,7 @@ void MakeMove(Board board, Position from, Position to);
 // Returns the array representation of the passed board.
 const char *GetArrayRep(Board board);
 
+// TODO: BB rep
 
 // Print the board. Empty squares will be represented by "."
 //
