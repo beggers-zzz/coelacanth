@@ -33,6 +33,7 @@ Board AllocateBoard() {
     b->promo = 'q';
     b->quietMoves = 0;
     // TODO: RoP hash
+    // TODO: UnmakeMove stack
 
     memcpy(&b->bbs, &INIT_BOARD_BBREP, 12 * sizeof(bb_t));
     memcpy(&b->pieces, &INIT_BOARD_A, sizeof(b->pieces));
@@ -52,10 +53,16 @@ char GetPiece(Board board, Position pos) {
 
 
 bool IsMoveLegal(Board board, Position from, Position to) {
-    return true;  // for now
+    if (from.row < 1 || to.row < 1 ||
+        from.row > 8 || to.row > 8 ||
+        from.col < 'a' || to.col < 'a' ||
+        from.col > 'h' || to.col > 'h') {
+        return false;
+    }
     // TODO: Make sure we're not moving onto our own piece
     //       Make sure that's how we can move
     //       Check if we'd be in check
+    return true;
 }
 
 
@@ -81,19 +88,26 @@ bool MakeMove(Board b, Position from, Position to) {
 }
 
 
+// TODO: UnmakeMove()
+
+
 const char *GetArrayRep(Board board) {
     return board->pieces;
 }
 
+
 const bb_t *GetBBRep(Board board) {
     return board->bbs;
 }
+
 
 void PrintBoard(Board board) {
     char *ps;
     Position p;
     int i;
     char j;
+
+    printf("\n");
 
     ps = board->pieces;
     for (i = 8; i > 0; i--) {
@@ -104,7 +118,6 @@ void PrintBoard(Board board) {
         }
         printf("\n");
     }
-    printf("\n");
 }
 
 

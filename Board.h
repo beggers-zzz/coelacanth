@@ -87,6 +87,7 @@ void SetPromochar(Board board, char piece);
 // Returns true if the move was made, false if not (because it was illegal).
 bool MakeMove(Board board, Position from, Position to);
 
+// TODO: UnmakeMove()
 
 // Get an array of pieces representing the board. 
 //
