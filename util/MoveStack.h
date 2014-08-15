@@ -40,6 +40,8 @@ void FreeStack(MoveStack s);
 
 // Stack stuff
 
+int StackSize(MoveStack s);
+
 void PushStack(MoveStack s, stackNode n);
 
 // Caller is *NOT* responsible for this memory--DO NOT FREE

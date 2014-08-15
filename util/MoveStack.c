@@ -28,6 +28,10 @@ void FreeStack(MoveStack s) {
     free(s);
 }
 
+int StackSize(MoveStack s) {
+    return s->nodeCount;
+}
+
 void PushStack(MoveStack s, stackNode n) {
     s->nodeArray[(s->nodeCount)++] = n;
 }
