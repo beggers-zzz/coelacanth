@@ -20,9 +20,11 @@ stack would be empty.
 #include <stdbool.h>
 
 struct stackNode {
+    int         fromSquare;
+    int         toSquare;
     char        takenPiece;
     int         prevQuietCounter;
-    int         prevEnPassant;      // previous pawn (square #) that could EP
+    int         prevEnPassant;
     bool        whiteCastleChanged;
     bool        blackCastleChanged;
 }

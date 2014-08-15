@@ -3,3 +3,5 @@
 *.o
 *.a
 coelacanth
+scripts/*
+!scripts/bb_gen.py

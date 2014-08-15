@@ -11,9 +11,7 @@ Implementation of the MoveStack.
 
 struct stackRec {
     int          nodeCount;
-    stackNode    nodeArray[1000];  // should be long enough..note that this isn't
-                                   // laziness on my part--following a pointer
-                                   // every time we push/pop is REALLY expensive
+    stackNode    nodeArray[1000];
 }
 
 
