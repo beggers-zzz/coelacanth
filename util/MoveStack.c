@@ -41,5 +41,5 @@ stackNode *PopStack(MoveStack s) {
 }
 
 stackNode *PeekStack(MoveStack s) {
-    return s->nodeArray + s->nodeCount;
+    return s->nodeArray + s->nodeCount - 1;
 }
