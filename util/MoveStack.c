@@ -8,16 +8,20 @@ Implementation of the MoveStack.
 */
 
 #include <stdbool.h>
+#include <stdlib.h>
 
-struct stackRec {
+#include "./MoveStack.h"
+
+typedef struct stackRec {
     int          nodeCount;
     stackNode    nodeArray[1000];
-}
+} stackRec;
 
 
 MoveStack AllocateStack() {
     MoveStack s = (MoveStack) malloc(sizeof(stackRec));
     s->nodeCount = 0;
+    return s;
 }
 
 void FreeStack(MoveStack s) {
@@ -25,13 +29,13 @@ void FreeStack(MoveStack s) {
 }
 
 void PushStack(MoveStack s, stackNode n) {
-    s->nodeArray[nodeCount++] = n;
+    s->nodeArray[(s->nodeCount)++] = n;
 }
 
 stackNode *PopStack(MoveStack s) {
-    return s->nodeArray[--nodeCount];
+    return s->nodeArray + --(s->nodeCount);
 }
 
 stackNode *PeekStack(MoveStack s) {
-    return s->nodeArray[nodeCount];
+    return s->nodeArray + s->nodeCount;
 }

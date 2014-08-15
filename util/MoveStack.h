@@ -19,7 +19,7 @@ stack would be empty.
 
 #include <stdbool.h>
 
-struct stackNode {
+typedef struct stackNode {
     int         fromSquare;
     int         toSquare;
     char        takenPiece;
@@ -27,10 +27,10 @@ struct stackNode {
     int         prevEnPassant;
     bool        whiteCastleChanged;
     bool        blackCastleChanged;
-}
+} stackNode;
 
 struct stackRec;
-typedef stackRec *MoveStack;
+typedef struct stackRec *MoveStack;
 
 // Get a new, empty stack.
 MoveStack AllocateStack();
