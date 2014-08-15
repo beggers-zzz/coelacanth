@@ -1,5 +1,6 @@
 CC = gcc
 CFLAGS = -g -Wall -std=gnu99 -Wpedantic -O5
+LDFLAGS = -Lstatic -lglobals
 
 OBJS = Board.o libglobals.a
 
