@@ -3,5 +3,6 @@
 *.o
 *.a
 coelacanth
+run_tests
 scripts/*
 !scripts/bb_gen.py

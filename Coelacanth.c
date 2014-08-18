@@ -19,7 +19,7 @@ Does main-y stuff.
 bool parseMove(char *in, Position *from, Position *to);
 
 
-int main(int argc, char **argv) {
+int main() {
     Board b;
     char input[10];
     Position to, from;
