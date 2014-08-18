@@ -25,8 +25,8 @@ typedef struct stackNode {
     char        takenPiece;
     int         prevQuietCounter;
     int         prevEnPassant;
-    bool        whiteCastleChanged;
-    bool        blackCastleChanged;
+    bool        wCastle;
+    bool        bCastle;
 } stackNode;
 
 struct stackRec;

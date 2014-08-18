@@ -128,8 +128,8 @@ static stackNode getSN1() {
     sn.takenPiece = '.';
     sn.prevQuietCounter = 10;
     sn.prevEnPassant = -1;
-    sn.whiteCastleChanged = true;
-    sn.blackCastleChanged = false;
+    sn.wCastle = true;
+    sn.bCastle = false;
 
     return sn;
 }
@@ -141,8 +141,8 @@ static stackNode getSN2() {
     sn.takenPiece = 'k';
     sn.prevQuietCounter = 20;
     sn.prevEnPassant = -1;
-    sn.whiteCastleChanged = false;
-    sn.blackCastleChanged = false;
+    sn.wCastle = false;
+    sn.bCastle = false;
 
     return sn;
 }
@@ -154,8 +154,8 @@ static stackNode getSN3() {
     sn.takenPiece = 'Q';
     sn.prevQuietCounter = 45;
     sn.prevEnPassant = 25;
-    sn.whiteCastleChanged = false;
-    sn.blackCastleChanged = true;
+    sn.wCastle = false;
+    sn.bCastle = true;
 
     return sn;
 }
@@ -166,7 +166,7 @@ static bool sneq(stackNode s1, stackNode s2) {
            s1.takenPiece == s2.takenPiece &&
            s1.prevQuietCounter == s2.prevQuietCounter &&
            s1.prevEnPassant == s2.prevEnPassant &&
-           s1.whiteCastleChanged == s2.whiteCastleChanged &&
-           s1.blackCastleChanged == s2.blackCastleChanged;
+           s1.wCastle == s2.wCastle &&
+           s1.bCastle == s2.bCastle;
 }
  
