@@ -13,7 +13,7 @@ Does main-y stuff.
 #include <stdbool.h>
 #include <string.h>
 
-#include "./Board.h"
+#include "Board.h"
 
 // Parses the passed string and gets a move from it.
 bool parseMove(char *in, Position *from, Position *to);
