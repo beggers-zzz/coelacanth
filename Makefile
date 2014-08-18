@@ -1,5 +1,7 @@
 CC = gcc
-CFLAGS = -g -Wall -std=gnu99 -Wpedantic -O5
+CFLAGS = -g -Wall -W -Wextra -Wimplicit-function-declaration -Wpedantic \
+        -std=gnu99 -O3
+LDFLAGS = -flto -O3
 
 EXENAME = coelacanth
 TESTEXENAME = run_tests
@@ -22,10 +24,10 @@ TESTHEADERS = $(wildcard $(TESTDIR)/**/*.h)
 all: coelacanth test
 
 coelacanth: Coelacanth.o $(OBJS)
-	$(CC) $(CFLAGS) -o $(EXENAME) Coelacanth.o $(OBJS)
+	$(CC) $(CFLAGS) -o $(EXENAME) Coelacanth.o $(OBJS) $(LDFLAGS)
 
 test: Tests.o $(OBJS) $(TESTOBJS)
-	$(CC) $(CFLAGS) -o $(TESTEXENAME) Tests.o $(OBJS) $(TESTOBJS) -lcheck
+	$(CC) $(CFLAGS) -o $(TESTEXENAME) Tests.o $(OBJS) $(TESTOBJS) -lcheck $(LDFLAGS)
 
 # NOTE: We're opting for slightly more time spent compiling than is necessary
 # because every .o depends on every .h. This allows for a much simpler
