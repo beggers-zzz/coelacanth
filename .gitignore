@@ -1,8 +1,6 @@
 *.swp
-*.gch
-*.o
-*.a
 coelacanth
 run_tests
+obj/
 scripts/*
 !scripts/bb_gen.py
