@@ -7,7 +7,7 @@ Trying to write a chess engine.
 Building
 --------
 
-To build coelacanth, first get the code and run `./setup.sh`.
+To build coelacanth, first get the code and run `scripts/setup` from the root directory.
 
 Then, simply `make`. This builds the executable and the test suite (neither one is complete yet).
 
