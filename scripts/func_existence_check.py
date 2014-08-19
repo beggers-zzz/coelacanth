@@ -1,4 +1,4 @@
-#!/bin/python2
+#!/usr/bin/python2
 # Author: Ben Eggers <ben.eggers36@gmail.com>
 # License: MIT
 #
@@ -13,7 +13,7 @@ import os
 DEFAULT_DIR = "."
 
 def main():
-    print "Test text"
+    print "Beginning function check..."
     print os.getcwd()
 
 
