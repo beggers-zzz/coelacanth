@@ -1,0 +1,36 @@
+#!/bin/bash
+# Author: Ben Eggers <ben.eggers36@gmail.com>
+# License: MIT
+#
+# Sets up necessary directories for the coelacanth project.
+
+OBJDIR=obj
+
+IGNOREDIRS=( scripts bin obj )
+
+echo "Setting up obj/ directory..."
+
+for DIR in $(find . -type d -regex '^./[^.].*'); do
+    
+    should_create=true
+
+    # If it contains a pattern from $IGNOREDIRS, we don't want to make room
+    # for it in $OBJDIR
+    for IGN in $IGNOREDIRS; do
+        if [[ $DIR =~ .*$IGN.* ]]; then
+            should_create=false
+        fi
+    done;
+
+    if [[ "$should_create" == true ]]; then
+        mkdir -p obj/$DIR
+    fi
+
+done;
+
+if [[ -d "bin" ]]; then
+    echo "bin/ already exists, not creating"
+else
+    echo "Creating bin/"
+    mkdir -p bin
+fi
