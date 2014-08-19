@@ -10,10 +10,11 @@
 
 import os
 
-DEFAULT_DIR = "."
 
-print "Beginning function check..."
-print os.getcwd()
+def main():
+    print "Beginning function check..."
+    print os.getcwd()
 
 
-print "Done with function check"
+if __name__ == "__main__":
+    main()
