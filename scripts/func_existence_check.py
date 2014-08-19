@@ -1,3 +1,4 @@
+#!/bin/python2
 # Author: Ben Eggers <ben.eggers36@gmail.com>
 # License: MIT
 #
@@ -13,3 +14,4 @@ DEFAULT_DIR = "."
 
 def main():
     print os.getcwd()
+    os.exit(1)
