@@ -48,8 +48,14 @@ void FreeBoard(Board board) {
 }
 
 
-char GetPiece(Board board, Position pos) {
-    return board->pieces[ifp(pos)];
+void SetPromochar(Board board, char piece) {
+    board->promo = piece;
+}
+
+
+bool WhiteToMove(Board b) {
+    // TODO
+    return true;
 }
 
 
@@ -67,8 +73,27 @@ bool IsMoveLegal(Board board, Position from, Position to) {
 }
 
 
-void SetPromochar(Board board, char piece) {
-    board->promo = piece;
+bool BoardIsSoftDraw(Board b) {
+    // TODO
+    return false;
+}
+
+
+bool IsPlayerToMoveInCheck(Board b) {
+    // TODO
+    return false;
+}
+
+
+bool IsGameOver(Board b) {
+    // TODO
+    return false;
+}
+
+
+int WhoWon(Board b) {
+    // TODO
+    return 1;
 }
 
 
@@ -89,7 +114,9 @@ bool MakeMove(Board b, Position from, Position to) {
 }
 
 
-// TODO: UnmakeMove()
+void UnmakeMove(Board b) {
+    // TODO
+}
 
 
 const char *GetArrayRep(Board board) {
@@ -99,6 +126,18 @@ const char *GetArrayRep(Board board) {
 
 const bb_t *GetBBRep(Board board) {
     return board->bbs;
+}
+
+
+Board BoardCopy(Board b) {
+    // TODO
+    return b;
+}
+
+
+bool BoardEQ(Board b1, Board b2) {
+    // TODO
+    return false;
 }
 
 

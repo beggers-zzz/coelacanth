@@ -108,6 +108,18 @@ bool IsPlayerToMoveInCheck(Board b);
 bool IsGameOver(Board b);
 
 
+// Who won the game? If this is called before the game is over, the return
+// value is undefined.
+//
+// Arguments:
+//
+//  - board. The Board we're examining.
+//
+// Returns 1 if white won, 0 if it was a draw, -1 if black won. If the game
+// is not over, behavior is undefined.
+int WhoWon(Board b);
+
+
 // Move a piece from one position to another.
 //
 // Arguments:
@@ -129,18 +141,6 @@ bool MakeMove(Board board, Position from, Position to);
 //  - board. The board to unmake a move on.
 //
 void UnmakeMove(Board b);
-
-
-// Who won the game? If this is called before the game is over, the return
-// value is undefined.
-//
-// Arguments:
-//
-//  - board. The Board we're examining.
-//
-// Returns 1 if white won, 0 if it was a draw, -1 if black won. If the game
-// is not over, behavior is undefined.
-int WhoWon(Board b);
 
 
 // Get an array of pieces representing the board. 
