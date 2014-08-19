@@ -13,5 +13,9 @@ import os
 DEFAULT_DIR = "."
 
 def main():
+    print "SOME SHIT"
     print os.getcwd()
-    os.exit(1)
+
+
+if __name__ == "__main__":
+    main()
