@@ -14,3 +14,6 @@ DEFAULT_DIR = "."
 
 print "Beginning function check..."
 print os.getcwd()
+
+
+print "Done with function check"
