@@ -13,7 +13,7 @@ import os
 DEFAULT_DIR = "."
 
 def main():
-    print "SOME SHIT"
+    print "Test text"
     print os.getcwd()
 
 
