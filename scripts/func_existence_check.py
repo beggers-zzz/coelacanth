@@ -10,11 +10,36 @@
 
 import os
 
+DEFAULT_DIR = "."
+IGNORE_DIRS = ["obj", "scripts"]
 
-def main():
+
+def main(root_dir):
     print "Beginning function check..."
-    print os.getcwd()
+    for dir, subdirs, files in os.walk(root_dir):
+        print "Found dir %s" % dir
+        
+        # Get rid of subdirs we don't care about
+        filter_dirs(subdirs)
+
+        # And files that aren't .c or .h
+        filter_files(files)
+
+        for file in files:
+            print "Found file %s" % file
+
+
+def filter_dirs(dirs):
+    for index, dir in enumerate(dirs):
+        bname = dir.split('/')[-1]
+        if bname in IGNORE_DIRS or bname[0] == '.':
+            del dirs[index]
+
+
+def filter_files(files):
+    pass
 
 
 if __name__ == "__main__":
-    main()
+    dir = DEFAULT_DIR
+    main(dir)
