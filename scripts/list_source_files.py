@@ -7,10 +7,11 @@
 # corresponding function definition in a .c file. Only checks that there is
 # a definition for each declaration, not that they are in sensible locations
 # with respect to one another, or anything other advanced stuff.
+#
+# TODO: Finish this. Doesn't seem worth the effort currently.
 
 import os
 
-DEFAULT_DIR = "."
 IGNORE_DIRS = ["obj", "scripts"] 
 
 
@@ -53,5 +54,4 @@ def filter_dirs(dirs):
 
 
 if __name__ == "__main__":
-    dir = DEFAULT_DIR
-    main(dir)
+    main(".")
