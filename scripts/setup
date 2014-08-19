@@ -6,7 +6,7 @@
 
 OBJDIR=obj
 
-IGNOREDIRS=( scripts bin obj )
+declare -a IGNOREDIRS=("scripts" "bin" "obj")
 
 echo "Setting up obj/ directory..."
 
@@ -16,7 +16,7 @@ for DIR in $(find . -type d -regex '^./[^.].*'); do
 
     # If it contains a pattern from $IGNOREDIRS, we don't want to make room
     # for it in $OBJDIR
-    for IGN in $IGNOREDIRS; do
+    for IGN in "${IGNOREDIRS[@]}"; do
         if [[ $DIR =~ .*$IGN.* ]]; then
             should_create=false
         fi
