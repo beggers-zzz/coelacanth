@@ -16,6 +16,7 @@ Implementation of the board specification found in "Board.h".
 #include "Board_priv.h"
 #include "BitBoard.h"
 #include "InitBoard.h"
+#include "MoveStack.h"
 
 
 // Get the array index corresponding to the passed Position.
@@ -28,13 +29,15 @@ Board AllocateBoard() {
         return (Board) NULL;
     }
 
+    b->whiteToMove = true;
+    b->gameOver = false;
     b->whiteCastle = true;
     b->blackCastle = true;
     b->enPassant = 0;
     b->promo = 'q';
     b->quietMoves = 0;
+    b->moveStack = AllocateStack();
     // TODO: RoP hash
-    // TODO: UnmakeMove stack
 
     memcpy(&b->bbs, &INIT_BOARD_BBREP, 12 * sizeof(bb_t));
     memcpy(&b->pieces, &INIT_BOARD_A, sizeof(b->pieces));
@@ -44,6 +47,8 @@ Board AllocateBoard() {
 
 
 void FreeBoard(Board board) {
+    FreeStack(board->moveStack);
+    // TODO Free RoP hash
     free(board);
 }
 
