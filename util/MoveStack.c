@@ -9,18 +9,19 @@ Implementation of the MoveStack.
 
 #include <stdbool.h>
 #include <stdlib.h>
+#include <string.h>  // for memcpy
 
 #include "MoveStack.h"
 
 typedef struct stackRec {
-    int          nodeCount;
+    int          current;
     stackNode    nodeArray[1000];
 } stackRec;
 
 
 MoveStack AllocateStack() {
     MoveStack s = (MoveStack) malloc(sizeof(stackRec));
-    s->nodeCount = 0;
+    s->current = 0;
     return s;
 }
 
@@ -29,7 +30,7 @@ void FreeStack(MoveStack s) {
 }
 
 int StackSize(MoveStack s) {
-    return s->nodeCount;
+    return s->current;
 }
 
 MoveStack StackCopy(MoveStack s) {
@@ -40,19 +41,20 @@ MoveStack StackCopy(MoveStack s) {
         return ns;
     }
 
-    memcpy(ns, s, sizeof(stackRec));
+    ns->current = s->current;
+    memcpy(&ns->nodeArray, &s->nodeArray, sizeof(ns->nodeArray));
 
     return ns;
 }
 
 void PushStack(MoveStack s, stackNode n) {
-    s->nodeArray[(s->nodeCount)++] = n;
+    s->nodeArray[(s->current)++] = n;
 }
 
 stackNode *PopStack(MoveStack s) {
-    return s->nodeArray + --(s->nodeCount);
+    return s->nodeArray + --(s->current);
 }
 
 stackNode *PeekStack(MoveStack s) {
-    return s->nodeArray + s->nodeCount - 1;
+    return s->nodeArray + s->current - 1;
 }

@@ -51,4 +51,4 @@ void PushStack(MoveStack s, stackNode n);
 stackNode *PopStack(MoveStack s);
 stackNode *PeekStack(MoveStack s);
 
-#endif // _COELACANTH_MOVE_STACK
+#endif // _COELACANTH_MOVE_STACK_
