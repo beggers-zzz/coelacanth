@@ -39,7 +39,7 @@ Board AllocateBoard() {
     b->moveStack = AllocateStack();
     // TODO: RoP hash
 
-    memcpy(&b->bbs, &INIT_BOARD_BBREP, 12 * sizeof(bb_t));
+    memcpy(&b->bbs, &INIT_BOARD_BBREP, sizeof(b->bbs));
     memcpy(&b->pieces, &INIT_BOARD_A, sizeof(b->pieces));
 
     return b;
@@ -135,8 +135,27 @@ const bb_t *GetBBRep(Board board) {
 
 
 Board BoardCopy(Board b) {
-    // TODO
-    return b;
+    Board nb;
+
+    nb = AllocateBoard();
+    if (nb == NULL) {
+        return nb;
+    }
+
+    nb->whiteToMove = b->whiteToMove;
+    nb->whiteCastle = b->whiteCastle;
+    nb->blackCastle = b->blackCastle;
+    nb->gameOver = b->gameOver;
+    nb->enPassant = b->enPassant;
+    nb->quietMoves = b->quietMoves;
+    nb->promo = b->promo;
+
+    nb->moveStack = StackCopy(b->moveStack);
+
+    memcpy(&nb->bbs, &b->bbs, sizeof(nb->bbs));
+    memcpy(&nb->pieces, &b->pieces, sizeof(nb->pieces));
+
+    return nb;
 }
 
 
