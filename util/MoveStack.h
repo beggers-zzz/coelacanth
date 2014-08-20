@@ -38,6 +38,9 @@ MoveStack AllocateStack();
 // Free a stack
 void FreeStack(MoveStack s);
 
+// Copy a stack
+MoveStack StackCopy(MoveStack s);
+
 // Stack stuff
 
 int StackSize(MoveStack s);

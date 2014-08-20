@@ -32,6 +32,19 @@ int StackSize(MoveStack s) {
     return s->nodeCount;
 }
 
+MoveStack StackCopy(MoveStack s) {
+    MoveStack ns;
+
+    ns = AllocateStack();
+    if (ns == NULL) {
+        return ns;
+    }
+
+    memcpy(ns, s, sizeof(stackRec));
+
+    return ns;
+}
+
 void PushStack(MoveStack s, stackNode n) {
     s->nodeArray[(s->nodeCount)++] = n;
 }
