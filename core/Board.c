@@ -59,8 +59,7 @@ void SetPromochar(Board board, char piece) {
 
 
 bool WhiteToMove(Board b) {
-    // TODO
-    return true;
+    return b->whiteToMove;
 }
 
 
@@ -91,8 +90,7 @@ bool IsPlayerToMoveInCheck(Board b) {
 
 
 bool IsGameOver(Board b) {
-    // TODO
-    return false;
+    return b->gameOver;
 }
 
 
@@ -115,12 +113,14 @@ bool MakeMove(Board b, Position from, Position to) {
     // TODO: Promotion
     // TODO: RoP hash
     // TODO: quiet move?
+    b->whiteToMove = !(b->whiteToMove);
     return true;
 }
 
 
 void UnmakeMove(Board b) {
     // TODO
+    b->whiteToMove = !(b->whiteToMove);
 }
 
 
