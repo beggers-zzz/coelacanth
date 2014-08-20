@@ -23,7 +23,10 @@ TEST_OBJS = $(TEST_SRCS:%.c=$(OBJ_DIR)/%.o)
 TEST_HEADERS = $(wildcard $(TEST_DIR)/**/*.h)
 
 
-all: coelacanth test
+all: setup coelacanth test
+
+setup: FORCE
+	scripts/setup
 
 coelacanth: $(OBJ_DIR)/Coelacanth.o $(OBJS)
 	$(CC) $(CFLAGS) -o $(BIN_DIR)/$(EXENAME) $(OBJ_DIR)/Coelacanth.o \
@@ -45,6 +48,6 @@ $(OBJ_DIR)/%.o: %.c $(HEADERS)
 	$(CC) $(CFLAGS) $(INCLUDES) -c -o $@ $<
 
 clean: FORCE
-	/bin/rm -f $(BIN_DIR)/* $(OBJS) $(TEST_OBJS) $(OBJ_DIR)/*.o
+	/bin/rm -rf $(BIN_DIR) $(OBJ_DIR)
 
 FORCE:
