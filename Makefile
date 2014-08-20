@@ -1,6 +1,5 @@
 CC = gcc
-CFLAGS = -g -Wall -W -Wextra -Wimplicit-function-declaration -Wpedantic \
--std=gnu99 -O3
+CFLAGS = -g -Wall -W -Wextra -Wimplicit-function-declaration -Wpedantic -std=gnu99 -O3
 LDFLAGS = -flto -O3
 
 EXENAME := coelacanth
@@ -29,12 +28,10 @@ setup: FORCE
 	scripts/setup
 
 coelacanth: $(OBJ_DIR)/Coelacanth.o $(OBJS)
-	$(CC) $(CFLAGS) -o $(BIN_DIR)/$(EXENAME) $(OBJ_DIR)/Coelacanth.o \
- $(OBJS) $(LDFLAGS)
+	$(CC) $(CFLAGS) -o $(BIN_DIR)/$(EXENAME) $(OBJ_DIR)/Coelacanth.o $(OBJS) $(LDFLAGS)
 
 test: $(OBJ_DIR)/Tests.o $(OBJS) $(TEST_OBJS)
-	$(CC) $(CFLAGS) -o $(BIN_DIR)/$(TESTEXENAME) $(OBJ_DIR)/Tests.o $(OBJS) \
- $(TEST_OBJS) -lcheck $(LDFLAGS)
+	$(CC) $(CFLAGS) -o $(BIN_DIR)/$(TESTEXENAME) $(OBJ_DIR)/Tests.o $(OBJS)  $(TEST_OBJS) -lcheck $(LDFLAGS)
 
 # NOTE: We're opting for slightly more time spent compiling than is necessary
 # because every .o depends on every .h. This allows for a much simpler
