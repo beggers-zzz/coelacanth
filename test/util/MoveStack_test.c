@@ -21,80 +21,75 @@ static stackNode getSN3();
 static bool sneq(stackNode s1, stackNode s2);
 
 
-// The tests
+// Fixtures
 
-START_TEST (test_free) {
-    MoveStack s = AllocateStack();
-    ck_assert(s != NULL);
+MoveStack s;
+
+void setup(void) {
+    s = AllocateStack();
+}
+
+void teardown(void) {
     FreeStack(s);
+}
+
+// And the tests themselves
+START_TEST (test_free) {
+    ck_assert(s != NULL);
 }
 END_TEST
 
 START_TEST (test_push_one_size_one) {
-    MoveStack s = AllocateStack();
     PushStack(s, getSN1());
     ck_assert_int_eq(StackSize(s), 1);
-    FreeStack(s);
 }
 END_TEST
 
 START_TEST (test_push_two_size_two) {
-    MoveStack s = AllocateStack();
     PushStack(s, getSN1());
     PushStack(s, getSN2());
     ck_assert_int_eq(StackSize(s), 2);
-    FreeStack(s);
 }
 END_TEST
 
 START_TEST (test_push_pop_equal) {
-    MoveStack s = AllocateStack();
     PushStack(s, getSN1());
     ck_assert(sneq(getSN1(), *PopStack(s)));
-    FreeStack(s);
 }
 END_TEST
 
 START_TEST (test_push_peek_pop_equal) {
-    MoveStack s = AllocateStack();
     PushStack(s, getSN2());
     stackNode sn = *PeekStack(s);
     ck_assert(sneq(getSN2(), sn));
     ck_assert(sneq(sn, *PopStack(s)));
-    FreeStack(s);
 }
 END_TEST
 
 START_TEST (test_peek_idempotent) {
-    MoveStack s = AllocateStack();
     PushStack(s, getSN3());
     stackNode sn = *PeekStack(s);
     for (int i = 0; i < 10; i++) {
         ck_assert(sneq(sn, *PeekStack(s)));
     }
-    FreeStack(s);
 }
 END_TEST
 
 START_TEST (test_size_idempotent) {
-    MoveStack s = AllocateStack();
     PushStack(s, getSN3());
     for (int i = 0; i < 10; i++) {
         ck_assert_int_eq(StackSize(s), 1);
     }
-    FreeStack(s);
 }
 END_TEST
 
 START_TEST (test_push_many_pop_last) {
-    MoveStack s = AllocateStack();
     PushStack(s, getSN1());
     PushStack(s, getSN2());
     PushStack(s, getSN3());
     ck_assert(sneq(getSN3(), *PopStack(s)));
     ck_assert(sneq(getSN2(), *PopStack(s)));
     ck_assert(sneq(getSN1(), *PopStack(s)));
-    FreeStack(s);
 }
 END_TEST
 
@@ -104,6 +99,7 @@ Suite *movestack_suite() {
     Suite *s = suite_create("MoveStack");
 
     TCase *tc_core = tcase_create("Core");
+    tcase_add_checked_fixture(tc_core, setup, teardown);
     suite_add_tcase(s, tc_core);
 
     tcase_add_test(tc_core, test_free);
