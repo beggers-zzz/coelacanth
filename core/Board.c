@@ -160,8 +160,22 @@ Board BoardCopy(Board b) {
 
 
 bool BoardEQ(Board b1, Board b2) {
-    // TODO
-    return false;
+    bb_t *b1b = &(b1->bbs);
+    bb_t *b2b = &(b2->bbs);
+
+    for (int i = 0; i < 12; i++) {
+        if (b1b[i] != b2b[i]) {
+            return false;
+        }
+    }
+
+    return b1->whiteToMove == b2->whiteToMove &&
+           b1->whiteCastle == b2->whiteCastle &&
+           b1->blackCastle == b2->blackCastle &&
+           b1->gameOver == b2->gameOver &&
+           b1->enPassant == b2->enPassant &&
+           b1->quietMoves == b2->quietMoves &&
+           StackEQ(b1->moveStack, b2->moveStack);
 }
 
 

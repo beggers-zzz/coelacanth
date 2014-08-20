@@ -16,7 +16,7 @@ Implementation of the MoveStack.
 
 typedef struct stackRec {
     int          current;
-    stackNode    nodeArray[STACK_SIZE];
+    StackNode    nodeArray[STACK_SIZE];
 } stackRec;
 
 
@@ -51,14 +51,42 @@ MoveStack StackCopy(MoveStack s) {
     return ns;
 }
 
-void PushStack(MoveStack s, stackNode n) {
+bool StackEQ(MoveStack s1, MoveStack s2) {
+    int i;
+
+    if (s1->current != s2->current) {
+        return false;
+    }
+
+    i = 0;
+    while (i < s1->current) {
+        if (!sneq(s1->nodeArray[i], s2->nodeArray[i])) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+void PushStack(MoveStack s, StackNode n) {
     s->nodeArray[(s->current)++] = n;
 }
 
-stackNode *PopStack(MoveStack s) {
+StackNode *PopStack(MoveStack s) {
     return s->nodeArray + --(s->current);
 }
 
-stackNode *PeekStack(MoveStack s) {
+StackNode *PeekStack(MoveStack s) {
     return s->nodeArray + s->current - 1;
 }
+
+bool sneq(StackNode s1, StackNode s2) {
+    return s1.fromSquare == s2.fromSquare &&
+           s1.toSquare == s2.toSquare &&
+           s1.takenPiece == s2.takenPiece &&
+           s1.prevQuietCounter == s2.prevQuietCounter &&
+           s1.prevEnPassant == s2.prevEnPassant &&
+           s1.wCastle == s2.wCastle &&
+           s1.bCastle == s2.bCastle;
+}
+ 

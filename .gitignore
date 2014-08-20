@@ -1,3 +1,4 @@
 *.swp
 obj/
-bin/
+coelacanth
+test

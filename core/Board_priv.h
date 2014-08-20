@@ -7,8 +7,8 @@ This file contains the implementation of structs found in "Board.h".
 
 */
 
-#ifndef _BEGGERS_BOARD_PRIV_
-#define _BEGGERS_BOARD_PRIV_
+#ifndef _COELACANTH_BOARD_PRIV_
+#define _COELACANTH_BOARD_PRIV_
 
 #include <stdbool.h>
 
@@ -31,4 +31,4 @@ typedef struct boardRec {
 } BoardRec;
 
 
-#endif  // _BEGGERS_BOARD_PRIV_
+#endif  // _COELACANTH_BOARD_PRIV_

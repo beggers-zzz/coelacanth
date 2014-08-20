@@ -19,7 +19,7 @@ stack would be empty.
 
 #include <stdbool.h>
 
-typedef struct stackNode {
+typedef struct StackNode {
     int         fromSquare;
     int         toSquare;
     char        takenPiece;
@@ -27,7 +27,7 @@ typedef struct stackNode {
     int         prevEnPassant;
     bool        wCastle;
     bool        bCastle;
-} stackNode;
+} StackNode;
 
 struct stackRec;
 typedef struct stackRec *MoveStack;
@@ -41,14 +41,19 @@ void FreeStack(MoveStack s);
 // Copy a stack
 MoveStack StackCopy(MoveStack s);
 
+bool StackEQ(MoveStack s1, MoveStack s2);
+
 // Stack stuff
 
 int StackSize(MoveStack s);
 
-void PushStack(MoveStack s, stackNode n);
+void PushStack(MoveStack s, StackNode n);
 
 // Caller is *NOT* responsible for this memory--DO NOT FREE
-stackNode *PopStack(MoveStack s);
-stackNode *PeekStack(MoveStack s);
+StackNode *PopStack(MoveStack s);
+StackNode *PeekStack(MoveStack s);
+
+
+bool sneq(StackNode sn1, StackNode sn2);
 
 #endif // _COELACANTH_MOVE_STACK_
