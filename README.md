@@ -27,4 +27,4 @@ Here's the (tentative) layout:
 Issues
 ------
 
-This is my first real-sized project that I'm doing on my own, and I also don't have much experience with C. Comments and constructive criticism are appreciated! If something seems amiss, open an issue or drop me a line at <ben.eggers36@gmail.com>.
+This is the first real-sized project that I'm doing on my own, and I also don't have much experience with C. Comments and constructive criticism are appreciated! If something seems amiss, open an issue or drop me a line at <ben.eggers36@gmail.com>.
