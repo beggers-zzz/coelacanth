@@ -160,11 +160,8 @@ Board BoardCopy(Board b) {
 
 
 bool BoardEQ(Board b1, Board b2) {
-    bb_t *b1b = &(b1->bbs);
-    bb_t *b2b = &(b2->bbs);
-
     for (int i = 0; i < 12; i++) {
-        if (b1b[i] != b2b[i]) {
+        if (b1->bbs[i] != b2->bbs[i]) {
             return false;
         }
     }
