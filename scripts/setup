@@ -6,7 +6,7 @@
 
 OBJDIR=obj
 
-declare -a IGNOREDIRS=("scripts" "bin" "obj")
+declare -a IGNOREDIRS=("scripts" "obj")
 
 echo "Setting up obj/ directory..."
 
@@ -28,9 +28,3 @@ for DIR in $(find . -type d -regex '^./[^.].*'); do
 
 done;
 
-if [[ -d "bin" ]]; then
-    echo "bin/ already exists, not creating"
-else
-    echo "Creating bin/"
-    mkdir -p bin
-fi

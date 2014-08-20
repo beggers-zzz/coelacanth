@@ -2,16 +2,12 @@ CC = gcc
 CFLAGS = -g -Wall -W -Wextra -Wimplicit-function-declaration -Wpedantic -std=gnu99 -O3
 LDFLAGS = -flto -O3
 
-EXENAME := coelacanth
-TESTEXENAME := run_tests
-
 DIRS := core static util
-TEST_DIR := test
+TEST_DIR := tests
 OBJ_DIR := obj
-BIN_DIR := bin
 
 INCLUDES := $(DIRS:%=-I%)
-TEST_INCLUDES := -I$(TEST_DIR) $(DIRS:%=-Itest/%)
+TEST_INCLUDES := -I$(TEST_DIR) $(DIRS:%=-I$(TEST_DIR)/%)
 
 SRCS = $(wildcard **/*.c)
 OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
@@ -22,16 +18,13 @@ TEST_OBJS = $(TEST_SRCS:%.c=$(OBJ_DIR)/%.o)
 TEST_HEADERS = $(wildcard $(TEST_DIR)/**/*.h)
 
 
-all: setup coelacanth test
-
-setup: FORCE
-	scripts/setup
+all: coelacanth test
 
 coelacanth: $(OBJ_DIR)/Coelacanth.o $(OBJS)
-	$(CC) $(CFLAGS) -o $(BIN_DIR)/$(EXENAME) $(OBJ_DIR)/Coelacanth.o $(OBJS) $(LDFLAGS)
+	$(CC) $(CFLAGS) -o coelacanth $(OBJ_DIR)/Coelacanth.o $(OBJS) $(LDFLAGS)
 
 test: $(OBJ_DIR)/Tests.o $(OBJS) $(TEST_OBJS)
-	$(CC) $(CFLAGS) -o $(BIN_DIR)/$(TESTEXENAME) $(OBJ_DIR)/Tests.o $(OBJS)  $(TEST_OBJS) -lcheck $(LDFLAGS)
+	$(CC) $(CFLAGS) -o test $(OBJ_DIR)/Tests.o $(OBJS) $(TEST_OBJS) -lcheck $(LDFLAGS)
 
 # NOTE: We're opting for slightly more time spent compiling than is necessary
 # because every .o depends on every .h. This allows for a much simpler
@@ -45,6 +38,8 @@ $(OBJ_DIR)/%.o: %.c $(HEADERS)
 	$(CC) $(CFLAGS) $(INCLUDES) -c -o $@ $<
 
 clean: FORCE
-	/bin/rm -rf $(BIN_DIR) $(OBJ_DIR)
+	/bin/rm -f coelacanth test $(OBJ_DIR)/*.o $(OBJS)
 
 FORCE:
+
+.PHONY: clean 
