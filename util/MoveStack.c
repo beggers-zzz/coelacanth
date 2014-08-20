@@ -9,13 +9,14 @@ Implementation of the MoveStack.
 
 #include <stdbool.h>
 #include <stdlib.h>
-#include <string.h>  // for memcpy
 
 #include "MoveStack.h"
 
+#define STACK_SIZE 1000
+
 typedef struct stackRec {
     int          current;
-    stackNode    nodeArray[1000];
+    stackNode    nodeArray[STACK_SIZE];
 } stackRec;
 
 
@@ -35,14 +36,17 @@ int StackSize(MoveStack s) {
 
 MoveStack StackCopy(MoveStack s) {
     MoveStack ns;
+    int i;
 
     ns = AllocateStack();
     if (ns == NULL) {
         return ns;
     }
 
-    ns->current = s->current;
-    memcpy(&ns->nodeArray, &s->nodeArray, sizeof(ns->nodeArray));
+    i = 0;
+    while (i < s->current) {
+        ns->nodeArray[ns->current++] = s->nodeArray[i++];
+    }
 
     return ns;
 }

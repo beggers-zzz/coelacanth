@@ -15,11 +15,13 @@ int main(void) {
     int number_failed;
 
     Suite *s = movestack_suite();
-    SRunner *sr = srunner_create(s);
-    srunner_set_fork_status(sr, CK_NOFORK);  // for valgrind
 
+    SRunner *sr = srunner_create(s);
+
+    srunner_set_fork_status(sr, CK_NOFORK);  // for valgrind
     srunner_run_all(sr, CK_NORMAL);
     number_failed = srunner_ntests_failed(sr);
+
     srunner_free(sr);
 
     return number_failed;

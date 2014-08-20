@@ -93,6 +93,50 @@ START_TEST (test_push_many_pop_last) {
 }
 END_TEST
 
+START_TEST (test_stack_copy_gives_equal) {
+    MoveStack s2;
+
+    PushStack(s, getSN3());
+
+    s2 = StackCopy(s);
+    ck_assert(sneq(*PopStack(s), *PopStack(s2)));
+
+    FreeStack(s2);
+}
+END_TEST
+
+START_TEST (test_stack_copy_equal_more_thorough) {
+    MoveStack s2;
+
+    PushStack(s, getSN3());
+    PushStack(s, getSN1());
+    PushStack(s, getSN2());
+
+    s2 = StackCopy(s);
+
+    ck_assert(sneq(*PeekStack(s), *PeekStack(s2)));
+    ck_assert(sneq(*PopStack(s), *PopStack(s2)));
+    ck_assert(sneq(*PeekStack(s), *PeekStack(s2)));
+    ck_assert(sneq(*PopStack(s), *PopStack(s2)));
+    ck_assert(sneq(*PeekStack(s), *PeekStack(s2)));
+    ck_assert(sneq(*PopStack(s), *PopStack(s2)));
+
+    FreeStack(s2);
+}
+END_TEST
+
+START_TEST (test_stack_copy_different_stacks) {
+    MoveStack s2;
+    
+    s2 = StackCopy(s);
+
+    PopStack(s);
+
+    ck_assert_int_ne(StackSize(s), StackSize(s2));
+
+    FreeStack(s2);
+}
+END_TEST
 
 // Our actual test suite
 Suite *movestack_suite() {
@@ -100,7 +144,6 @@ Suite *movestack_suite() {
 
     TCase *tc_core = tcase_create("Core");
     tcase_add_checked_fixture(tc_core, setup, teardown);
-    suite_add_tcase(s, tc_core);
 
     tcase_add_test(tc_core, test_free);
     tcase_add_test(tc_core, test_push_one_size_one);
@@ -110,6 +153,11 @@ Suite *movestack_suite() {
     tcase_add_test(tc_core, test_push_many_pop_last);
     tcase_add_test(tc_core, test_peek_idempotent);
     tcase_add_test(tc_core, test_size_idempotent);
+    tcase_add_test(tc_core, test_stack_copy_gives_equal);
+    tcase_add_test(tc_core, test_stack_copy_equal_more_thorough);
+    tcase_add_test(tc_core, test_stack_copy_different_stacks);
+
+    suite_add_tcase(s, tc_core);
 
     return s;
 }
