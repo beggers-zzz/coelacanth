@@ -10,8 +10,8 @@ Tests the MoveStack.
 #include <check.h>
 #include <stdbool.h>
 
-#include "MoveStack_test.h"
 #include "MoveStack.h"
+#include "MoveStack_test.h"
 
 
 // Helpers to get a few different stack nodes

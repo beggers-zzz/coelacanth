@@ -10,13 +10,14 @@ Runs alllllllll the tests.
 #include <check.h>
 
 #include "MoveStack_test.h"
+#include "Board_test.h"
 
 int main(void) {
     int number_failed;
+    SRunner *sr;
 
-    Suite *s = movestack_suite();
-
-    SRunner *sr = srunner_create(s);
+    sr = srunner_create(movestack_suite());
+    srunner_add_suite(sr, board_suite());
 
     srunner_set_fork_status(sr, CK_NOFORK);  // for valgrind
     srunner_run_all(sr, CK_NORMAL);
