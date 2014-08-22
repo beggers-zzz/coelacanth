@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -g -Wall -W -Wextra -Wimplicit-function-declaration -Wpedantic -std=gnu99 -O3
+CFLAGS = -g -Wall -W -Wextra -Wimplicit-function-declaration -Wpedantic -std=gnu11 -O3
 LDFLAGS = -flto -O3
 
 DIRS := core static util
