@@ -111,25 +111,46 @@ int WhoWon(Board b) {
 
 
 bool MakeMove(Board b, Position from, Position to) {
+    MoveStackNode sn;   
+    int fromSquare, toSquare;
+
     if (!IsMoveLegal(b, from, to)) {
         return false;
     }
 
-    b->pieces[ifp(to)] = b->pieces[ifp(from)];
-    b->pieces[ifp(from)] = EmptySquare;
+    fromSquare = ifp(from);
+    toSquare = ifp(to);
+
+    sn.fromSquare = fromSquare;
+    sn.toSquare = toSquare;
+    sn.takenPiece = b->pieces[toSquare];
+    sn.prevQuietCounter = b->quietMoves;
+    sn.prevEnPassant = b->enPassant;
+    PushStack(b->moveStack, sn);
+
+    b->pieces[toSquare] = b->pieces[fromSquare] & ~VIRGIN_MASK;
+    b->pieces[fromSquare] = EmptySquare;
     // TODO: BB changes and stuff
-    // TODO: Castling rights changes
     // TODO: EP changes
     // TODO: Promotion
     // TODO: RoP hash
     // TODO: quiet move?
     b->whiteToMove = !(b->whiteToMove);
+
     return true;
 }
 
 
 void UnmakeMove(Board b) {
-    // TODO
+    MoveStackNode *sn;
+
+    sn = PopStack(b->moveStack);
+
+    b->enPassant = sn->prevEnPassant;
+    b->quietMoves = sn->prevQuietCounter;
+    b->pieces[sn->fromSquare] = b->pieces[sn->toSquare];
+    b->pieces[sn->toSquare] = sn->takenPiece;
+
     b->whiteToMove = !(b->whiteToMove);
 }
 

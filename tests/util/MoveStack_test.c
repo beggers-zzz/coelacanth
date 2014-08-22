@@ -15,9 +15,9 @@ Tests the MoveStack.
 
 
 // Helpers to get a few different stack nodes
-static StackNode getSN1();
-static StackNode getSN2();
-static StackNode getSN3();
+static MoveStackNode getSN1();
+static MoveStackNode getSN2();
+static MoveStackNode getSN3();
 
 
 // Fixtures
@@ -59,7 +59,7 @@ END_TEST
 
 START_TEST (test_push_peek_pop_equal) {
     PushStack(s, getSN2());
-    StackNode sn = *PeekStack(s);
+    MoveStackNode sn = *PeekStack(s);
     ck_assert(sneq(getSN2(), sn));
     ck_assert(sneq(sn, *PopStack(s)));
 }
@@ -67,7 +67,7 @@ END_TEST
 
 START_TEST (test_peek_idempotent) {
     PushStack(s, getSN3());
-    StackNode sn = *PeekStack(s);
+    MoveStackNode sn = *PeekStack(s);
     for (int i = 0; i < 10; i++) {
         ck_assert(sneq(sn, *PeekStack(s)));
     }
@@ -164,8 +164,8 @@ Suite *movestack_suite() {
 
 // Helper functions
 
-static StackNode getSN1() {
-    StackNode sn;
+static MoveStackNode getSN1() {
+    MoveStackNode sn;
     sn.fromSquare = 1;
     sn.toSquare = 2;
     sn.takenPiece = '.';
@@ -177,8 +177,8 @@ static StackNode getSN1() {
     return sn;
 }
 
-static StackNode getSN2() {
-    StackNode sn;
+static MoveStackNode getSN2() {
+    MoveStackNode sn;
     sn.fromSquare = 2;
     sn.toSquare = 9;
     sn.takenPiece = 'k';
@@ -190,8 +190,8 @@ static StackNode getSN2() {
     return sn;
 }
 
-static StackNode getSN3() {
-    StackNode sn;
+static MoveStackNode getSN3() {
+    MoveStackNode sn;
     sn.fromSquare = 10;
     sn.toSquare = 30;
     sn.takenPiece = 'Q';
