@@ -16,16 +16,16 @@ stuff).
 
 #include <stdint.h>
 
-typedef Piece uint8_t
+typedef uint8_t Piece;
 
-#define PAWN_MASK       0b00000001
-#define KNIGHT_MASK     0b00000010
-#define BISHOP_MASK     0b00000100
-#define ROOK_MASK       0b00001000
-#define QUEEN_MASK      0b00010000
-#define KING_MASK       0b00100000
-#define WHITE_MASK      0b01000000
-#define VIRGIN_MASK     0b10000000
+#define PAWN_MASK       0x01
+#define KNIGHT_MASK     0x02
+#define BISHOP_MASK     0x04
+#define ROOK_MASK       0x08
+#define QUEEN_MASK      0x10
+#define KING_MASK       0x20
+#define WHITE_MASK      0x40
+#define VIRGIN_MASK     0x80
 
 
 // Nice-to-haves. Most interesting things we can do with Pieces should be done
