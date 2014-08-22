@@ -14,15 +14,21 @@ Implementation of the board specification found in "Board.h".
 
 #include "Board.h"
 #include "Board_priv.h"
+
 #include "BitBoard.h"
 #include "InitBoard.h"
 #include "MoveStack.h"
 
+#include "Pieces.h"
+#include "PieceTransform.h"
 
 // Get the array index corresponding to the passed Position.
 static int ifp(Position p);
 
 Board AllocateBoard() {
+    Piece ps[64];
+    ReadPieces(&INIT_BOARD_CHARS, &ps);
+
     Board b = (Board) malloc(sizeof(BoardRec));
     if (b == NULL) {
         // shit
@@ -31,16 +37,19 @@ Board AllocateBoard() {
 
     b->whiteToMove = true;
     b->gameOver = false;
-    b->whiteCastle = true;
-    b->blackCastle = true;
     b->enPassant = 0;
-    b->promo = 'q';
+    b->promo = WhiteQueen;
     b->quietMoves = 0;
     b->moveStack = AllocateStack();
     // TODO: RoP hash
 
     memcpy(&b->bbs, &INIT_BOARD_BBREP, sizeof(b->bbs));
-    memcpy(&b->pieces, &INIT_BOARD_A, sizeof(b->pieces));
+    memcpy(&b->pieces, &ps, sizeof(b->pieces));
+
+    if (b->moveStack == NULL) {
+        free(b);
+        return NULL;
+    }
 
     return b;
 }
@@ -53,7 +62,7 @@ void FreeBoard(Board board) {
 }
 
 
-void SetPromochar(Board board, char piece) {
+void SetPromochar(Board board, Piece piece) {
     board->promo = piece;
 }
 
@@ -106,7 +115,7 @@ bool MakeMove(Board b, Position from, Position to) {
     }
 
     b->pieces[ifp(to)] = b->pieces[ifp(from)];
-    b->pieces[ifp(from)] = '.';
+    b->pieces[ifp(from)] = EmptySquare;
     // TODO: BB changes and stuff
     // TODO: Castling rights changes
     // TODO: EP changes
@@ -124,7 +133,7 @@ void UnmakeMove(Board b) {
 }
 
 
-const char *GetArrayRep(Board board) {
+const Piece *GetArrayRep(Board board) {
     return board->pieces;
 }
 
@@ -137,14 +146,12 @@ const bb_t *GetBBRep(Board board) {
 Board BoardCopy(Board b) {
     Board nb;
 
-    nb = AllocateBoard();
+    nb = (Board) malloc(sizeof(BoardRec));
     if (nb == NULL) {
         return nb;
     }
 
     nb->whiteToMove = b->whiteToMove;
-    nb->whiteCastle = b->whiteCastle;
-    nb->blackCastle = b->blackCastle;
     nb->gameOver = b->gameOver;
     nb->enPassant = b->enPassant;
     nb->quietMoves = b->quietMoves;
@@ -154,6 +161,10 @@ Board BoardCopy(Board b) {
 
     memcpy(&nb->bbs, &b->bbs, sizeof(nb->bbs));
     memcpy(&nb->pieces, &b->pieces, sizeof(nb->pieces));
+
+    if (nb->moveStack == NULL) {
+        free(nb);
+    }
 
     return nb;
 }
@@ -167,8 +178,6 @@ bool BoardEQ(Board b1, Board b2) {
     }
 
     return b1->whiteToMove == b2->whiteToMove &&
-           b1->whiteCastle == b2->whiteCastle &&
-           b1->blackCastle == b2->blackCastle &&
            b1->gameOver == b2->gameOver &&
            b1->enPassant == b2->enPassant &&
            b1->quietMoves == b2->quietMoves &&
@@ -177,22 +186,17 @@ bool BoardEQ(Board b1, Board b2) {
 
 
 void PrintBoard(Board board) {
-    char *ps;
-    Position p;
     int i;
-    char j;
+    char c[64];
 
-    printf("\n");
-
-    ps = board->pieces;
-    for (i = 8; i > 0; i--) {
-        for (j = 'a'; j <= 'h'; j++) {
-            p.row = i;
-            p.col = j;
-            printf("%c ", ps[ifp(p)]);
+    MakeBoardPrintable(GetArrayRep(board), &c);
+    for (i = 0; i < 64; i++) {
+        if (i % 8 == 0) {
+            printf("\n");
         }
-        printf("\n");
+        printf("%c ", c[i]);
     }
+    printf("\n");
 }
 
 

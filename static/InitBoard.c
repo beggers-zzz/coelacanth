@@ -10,7 +10,7 @@ Definition for the inital board configuration.
 #include "InitBoard.h"
 #include "BitBoard.h"
 
-const char INIT_BOARD_A[64] = {
+const char INIT_BOARD_CHARS[64] = {
                                'R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R',
                                'P', 'P', 'P', 'P', 'P', 'P', 'P', 'P',
                                '.', '.', '.', '.', '.', '.', '.', '.',

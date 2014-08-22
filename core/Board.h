@@ -14,6 +14,7 @@ A Board represents the full state of the chess game.
 #include <stdbool.h>
 
 #include "BitBoard.h" // for bb_t
+#include "Pieces.h"
 
 // Board positions
 typedef struct boardPos {
@@ -48,7 +49,7 @@ void FreeBoard(Board board);
 //
 //  - board. The board to set piece promotion on.
 //  - piece. The piece that pawns should be promoted to.
-void SetPromochar(Board board, char piece);
+void SetPromochar(Board board, Piece piece);
 
 
 // Is it white's turn?
@@ -150,7 +151,7 @@ void UnmakeMove(Board b);
 //  - board. The board we're getting the array representation of.
 //
 // Returns the array representation of the passed board.
-const char *GetArrayRep(Board board);
+const Piece *GetArrayRep(Board board);
 
 
 // Get the BitBoard representation of the Board.
