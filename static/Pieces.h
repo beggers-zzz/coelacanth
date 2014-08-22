@@ -10,6 +10,8 @@ Pieces are like, important.
 #ifndef _COELACANTH_PIECES_
 #define _COELACANTH_PIECES_
 
+#include <stdint.h>
+
 typedef uint8_t Piece;
 
 #define PAWN_MASK       0x01
