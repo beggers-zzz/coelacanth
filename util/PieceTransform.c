@@ -13,9 +13,7 @@ License: MIT
 char PieceToChar(Piece p) {
     char res;
 
-    if (p == 0) {
-        res = '.';
-    } else if (p & PAWN_MASK) {
+    if (p & PAWN_MASK) {
         res = 'p';
     } else if (p & KNIGHT_MASK) {
         res = 'n';
@@ -28,8 +26,9 @@ char PieceToChar(Piece p) {
     } else if (p & KING_MASK) {
         res = 'k';
     } else {
-        // this shouldn't happen
-        res = 0;
+        p = 0;  // anything invalid should be counted as a blank square.
+                // This is to make sure it doesn't get "uppercased"
+        res = '.';
     }
 
     if (p & WHITE_MASK) {
