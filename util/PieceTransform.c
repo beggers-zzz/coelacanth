@@ -49,7 +49,7 @@ Piece CharToPiece(char c) {
 
     if (c == 'p') {
         typemask = PAWN_MASK;
-    } else if (c == 'k') {
+    } else if (c == 'n') {
         typemask = KNIGHT_MASK;
     } else if (c == 'b') {
         typemask = BISHOP_MASK;
