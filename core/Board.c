@@ -73,12 +73,12 @@ bool WhiteToMove(Board b) {
 }
 
 bool WhiteCastle(Board b) {
-    //         king            a-rook         h-rook       virgin bits     booleanize
-    return (b->pieces[4] & (b->pieces[0] | b->pieces[7]) & VIRGIN_MASK) >> 7;
+    //         king            a-rook         h-rook       virgin bits
+    return (b->pieces[4] & (b->pieces[0] | b->pieces[7]) & VIRGIN_MASK);
 }
 
 bool BlackCastle(Board b) {
-    return (b->pieces[60] & (b->pieces[54] | b->pieces[63]) & VIRGIN_MASK) >> 7;
+    return (b->pieces[60] & (b->pieces[54] | b->pieces[63]) & VIRGIN_MASK);
 }
 
 bool IsMoveLegal(Board board, Position from, Position to) {
