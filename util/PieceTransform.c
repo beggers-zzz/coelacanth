@@ -3,15 +3,14 @@
 Author: Ben Eggers <ben.eggers36@gmail.com>
 License: MIT
 
-Definitions for the declarations found it PieceEncoding.h.
-
 */
 
 #include <stdint.h>
-#include "PieceEncoding.h"
 
+#include "PieceTransform.h"
+#include "Pieces.h"
 
-char PrettyPiece(Piece p) {
+char PieceToChar(Piece p) {
     char res;
 
     if (p & PAWN_MASK) {
@@ -38,7 +37,7 @@ char PrettyPiece(Piece p) {
     return res;
 }
 
-Piece MakePiece(char c) {
+Piece CharToPiece(char c) {
     uint8_t typemask;
     uint8_t wmask = 0;
 
