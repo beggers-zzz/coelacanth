@@ -9,6 +9,7 @@ Pieces.
 
 #include "Pieces.h"
 
+const Piece EmptySquare = 0;
 const Piece WhitePawn = PAWN_MASK | WHITE_MASK;
 const Piece WhiteKnight = KNIGHT_MASK | WHITE_MASK;
 const Piece WhiteBishop = BISHOP_MASK | WHITE_MASK;

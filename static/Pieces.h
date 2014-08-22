@@ -23,6 +23,7 @@ typedef uint8_t Piece;
 #define WHITE_MASK      0x40
 #define VIRGIN_MASK     0x80
 
+extern const Piece EmptySquare;
 extern const Piece WhitePawn;
 extern const Piece WhiteKnight;
 extern const Piece WhiteBishop;
