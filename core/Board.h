@@ -61,6 +61,17 @@ void SetPromochar(Board board, Piece piece);
 // Returns true if it's white's turn, false if it's black's.
 bool WhiteToMove(Board b);
 
+// Can white castle?
+//
+// Returns true if white can castle, false otherwise.
+bool WhiteCastle(Board b);
+
+
+// Can black castle?
+//
+// Returns true if black can castle, false otherwise.
+bool BlackCastle(Board b);
+
 
 // Check whether a move is legal, i.e. whether the piece at the first
 // argument (a position) can be moved to the second argument (a position).
