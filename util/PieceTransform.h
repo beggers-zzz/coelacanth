@@ -24,9 +24,9 @@ char PieceToChar(Piece p);
 Piece CharToPiece(char c);
 
 // Read 64 Pieces from p, turn them to chars, and put them in c
-void MakeBoardPrintable(Piece *p, char *c);
+void MakeBoardPrintable(const Piece *p, char *c);
 
 // Read 64 chars from c, turn them to Pieces, and put them in p
-void ReadPieces(char *c, Piece *p);
+void ReadPieces(const char *c, Piece *p);
 
 #endif // _COELACANTH_PIECE_TRANSFORM_

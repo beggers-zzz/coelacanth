@@ -27,7 +27,8 @@ static int ifp(Position p);
 
 Board AllocateBoard() {
     Piece ps[64];
-    ReadPieces(&INIT_BOARD_CHARS, &ps);
+
+    ReadPieces(&INIT_BOARD_CHARS[0], &ps[0]);
 
     Board b = (Board) malloc(sizeof(BoardRec));
     if (b == NULL) {
@@ -186,15 +187,16 @@ bool BoardEQ(Board b1, Board b2) {
 
 
 void PrintBoard(Board board) {
-    int i;
+    int i, j;
     char c[64];
 
-    MakeBoardPrintable(GetArrayRep(board), &c);
-    for (i = 0; i < 64; i++) {
-        if (i % 8 == 0) {
-            printf("\n");
+    MakeBoardPrintable(GetArrayRep(board), &c[0]);
+
+    for (i = 7; i >= 0; i--) {  // rows (backwards so black is printed above)
+        for (j = 0; j < 8; j++) {  // cols
+            printf("%c ", c[8*i + j]);
         }
-        printf("%c ", c[i]);
+        printf("\n");
     }
     printf("\n");
 }

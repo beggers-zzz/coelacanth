@@ -71,14 +71,14 @@ Piece CharToPiece(char c) {
     return typemask | wmask;
 }
 
-void MakeBoardPrintable(Piece *p, char *c) {
+void MakeBoardPrintable(const Piece *p, char *c) {
     int i;
     for (i = 0; i < 64; i++) {
         c[i] = PieceToChar(p[i]);
     }
 }
 
-void ReadPieces(char *c, Piece *p) {
+void ReadPieces(const char *c, Piece *p) {
     int i;
     for (i = 0; i < 64; i++) {
         p[i] = CharToPiece(c[i]);

@@ -13,6 +13,8 @@ Piece encoding tests.
 #include "PieceTransform.h"
 #include "PieceTransform_test.h"
 
+#include "InitBoard.h"
+
 
 static char _whitePawn = 'P';
 static char _whiteKnight = 'N';
@@ -149,50 +151,18 @@ START_TEST (ctp_bk) {
 }
 END_TEST
 
+START_TEST(arrays) {
+    char c[64];
+    Piece p[64];
 
-// Test suite
-Suite *piece_enc_suite() {
-    Suite *s = suite_create("Piece encoding");
+    ReadPieces(INIT_BOARD_CHARS, p);
+    MakeBoardPrintable(p, c);
 
-    TCase *tc_ptc = tcase_create("PrettyPrint");
-    TCase *tc_ctp = tcase_create("MakePiece");
-
-    // PieceToChar
-    tcase_add_test(tc_ptc, ptc_wp);
-    tcase_add_test(tc_ptc, ptc_wn);
-    tcase_add_test(tc_ptc, ptc_wb);
-    tcase_add_test(tc_ptc, ptc_wr);
-    tcase_add_test(tc_ptc, ptc_wq);
-    tcase_add_test(tc_ptc, ptc_wk);
-
-    tcase_add_test(tc_ptc, ptc_bp);
-    tcase_add_test(tc_ptc, ptc_bn);
-    tcase_add_test(tc_ptc, ptc_bb);
-    tcase_add_test(tc_ptc, ptc_br);
-    tcase_add_test(tc_ptc, ptc_bq);
-    tcase_add_test(tc_ptc, ptc_bk);
-
-    // And CharToPiece
-    tcase_add_test(tc_ctp, ctp_wp);
-    tcase_add_test(tc_ctp, ctp_wn);
-    tcase_add_test(tc_ctp, ctp_wb);
-    tcase_add_test(tc_ctp, ctp_wr);
-    tcase_add_test(tc_ctp, ctp_wq);
-    tcase_add_test(tc_ctp, ctp_wk);
-
-    tcase_add_test(tc_ctp, ctp_bp);
-    tcase_add_test(tc_ctp, ctp_bn);
-    tcase_add_test(tc_ctp, ctp_bb);
-    tcase_add_test(tc_ctp, ctp_br);
-    tcase_add_test(tc_ctp, ctp_bq);
-    tcase_add_test(tc_ctp, ctp_bk);
-
-    suite_add_tcase(s, tc_ptc);
-    suite_add_tcase(s, tc_ctp);
-
-    return s;
+    for (int i = 0; i < 64; i++) {
+        ck_assert(c[i] == INIT_BOARD_CHARS[i]);
+    }
 }
-
+END_TEST
 
 // Test suite
 Suite *piecetransform_suite() {
@@ -200,6 +170,7 @@ Suite *piecetransform_suite() {
 
     TCase *tc_ptc = tcase_create("PrettyPrint");
     TCase *tc_ctp = tcase_create("MakePiece");
+    TCase *tc_arr = tcase_create("Arrays");
 
     // PieceToChar
     tcase_add_test(tc_ptc, ptc_wp);
@@ -231,11 +202,13 @@ Suite *piecetransform_suite() {
     tcase_add_test(tc_ctp, ctp_bq);
     tcase_add_test(tc_ctp, ctp_bk);
 
+    // Arrays
+    tcase_add_test(tc_arr, arrays);
+
     suite_add_tcase(s, tc_ptc);
     suite_add_tcase(s, tc_ctp);
+    suite_add_tcase(s, tc_arr);
 
     return s;
 }
-
-
 
