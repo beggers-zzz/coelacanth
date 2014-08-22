@@ -13,7 +13,9 @@ License: MIT
 char PieceToChar(Piece p) {
     char res;
 
-    if (p & PAWN_MASK) {
+    if (p == 0) {
+        res = '.';
+    } else if (p & PAWN_MASK) {
         res = 'p';
     } else if (p & KNIGHT_MASK) {
         res = 'n';
@@ -27,7 +29,7 @@ char PieceToChar(Piece p) {
         res = 'k';
     } else {
         // this shouldn't happen
-        res = '.';
+        res = 0;
     }
 
     if (p & WHITE_MASK) {
@@ -47,7 +49,9 @@ Piece CharToPiece(char c) {
         c += 32;
     }
 
-    if (c == 'p') {
+    if (c == '.') {
+        typemask = 0;
+    } else if (c == 'p') {
         typemask = PAWN_MASK;
     } else if (c == 'n') {
         typemask = KNIGHT_MASK;
@@ -65,4 +69,18 @@ Piece CharToPiece(char c) {
     }
 
     return typemask | wmask;
+}
+
+void MakeBoardPrintable(Piece *p, char *c) {
+    int i;
+    for (i = 0; i < 64; i++) {
+        c[i] = PieceToChar(p[i]);
+    }
+}
+
+void ReadPieces(char *c, Piece *p) {
+    int i;
+    for (i = 0; i < 64; i++) {
+        p[i] = CharToPiece(c[i]);
+    }
 }
