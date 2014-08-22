@@ -151,7 +151,7 @@ START_TEST (ctp_bk) {
 }
 END_TEST
 
-START_TEST(arrays) {
+START_TEST (arrays) {
     char c[64];
     Piece p[64];
 
@@ -164,6 +164,38 @@ START_TEST(arrays) {
 }
 END_TEST
 
+START_TEST (virginity_empty_square) {
+    Piece p;
+
+    p = EmptySquare | VIRGIN_MASK;
+    ck_assert(PieceToChar(p) == '.');
+}
+END_TEST
+
+START_TEST (virginity_pawn) {
+    Piece p;
+
+    p = BlackPawn | VIRGIN_MASK;
+    ck_assert(PieceToChar(p) == 'p');
+}
+END_TEST
+
+START_TEST (virginity_king) {
+    Piece p;
+
+    p = WhiteKing | VIRGIN_MASK;
+    ck_assert(PieceToChar(p) == 'K');
+}
+END_TEST
+
+START_TEST (white_square) {
+    Piece p;
+
+    p = EmptySquare | WHITE_MASK;
+    ck_assert(PieceToChar(p) == '.');
+}
+END_TEST
+
 // Test suite
 Suite *piecetransform_suite() {
     Suite *s = suite_create("Piece encoding");
@@ -171,6 +203,7 @@ Suite *piecetransform_suite() {
     TCase *tc_ptc = tcase_create("PrettyPrint");
     TCase *tc_ctp = tcase_create("MakePiece");
     TCase *tc_arr = tcase_create("Arrays");
+    TCase *tc_misc = tcase_create("Misc");
 
     // PieceToChar
     tcase_add_test(tc_ptc, ptc_wp);
@@ -205,9 +238,16 @@ Suite *piecetransform_suite() {
     // Arrays
     tcase_add_test(tc_arr, arrays);
 
+    // Stuff I'm too lazy to organize since it's a small test suite
+    tcase_add_test(tc_misc, virginity_empty_square);
+    tcase_add_test(tc_misc, virginity_pawn);
+    tcase_add_test(tc_misc, virginity_king);
+    tcase_add_test(tc_misc, white_square);
+
     suite_add_tcase(s, tc_ptc);
     suite_add_tcase(s, tc_ctp);
     suite_add_tcase(s, tc_arr);
+    suite_add_tcase(s, tc_misc);
 
     return s;
 }
