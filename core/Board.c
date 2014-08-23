@@ -80,7 +80,7 @@ bool BlackCastle(Board b) {
 }
 
 bool IsMoveLegal(Board board, int from, int to) {
-    return true;
+    return 0 <= from && from <= 63 && 0 <= to && to <= 63;
 }
 
 
@@ -122,7 +122,7 @@ bool MakeMove(Board b, int from, int to) {
     PushStack(b->moveStack, sn);
 
     b->pieces[to] = b->pieces[from] & ~VIRGIN_MASK;
-    b->pieces[from] = Empty;
+    b->pieces[from] = EmptySquare;
     // TODO: BB changes and stuff
     // TODO: EP changes
     // TODO: Promotion

@@ -16,14 +16,13 @@ Does main-y stuff.
 #include "Board.h"
 
 // Parses the passed string and gets a move from it.
-bool parseMove(char *in, Position *from, Position *to);
-
+bool parseMove(char *in, int *from, int *to);
 
 int main() {
     Board b;
     char input[10];
-    Position to, from;
-    bool validIn;
+    int to, from;
+    bool success;
 
     b = AllocateBoard();
     
@@ -31,10 +30,9 @@ int main() {
         PrintBoard(b);
         printf("\nNext move?:\n");
         fgets(input, 10, stdin);
-        validIn = parseMove(input, &from, &to);
-        if (validIn) {
-            MakeMove(b, from, to);
-        } else {
+        parseMove(input, &from, &to);
+        success = MakeMove(b, from, to);
+        if (!success) {
             printf("Invalid move, you fool.\n");
         }
     }
@@ -42,10 +40,8 @@ int main() {
     FreeBoard(b);
 }
 
-bool parseMove(char *in, Position *from, Position *to) {
-    from->col = in[0];
-    from->row = in[1] - '0';
-    to->col = in[3];
-    to->row = in[4] - '0';
+bool parseMove(char *in, int *from, int *to) {
+    *from = in[0] - 'a' + 8 * (in[1] - '1');
+    *to = in[3] - 'a' + 8 * (in[4] - '1');
     return true;
 }
