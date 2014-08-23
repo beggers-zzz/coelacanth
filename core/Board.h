@@ -3,7 +3,8 @@
 Author: Ben Eggers <ben.eggers36@gmail.com>
 License: MIT
 
-A Board represents the full state of the chess game.
+A Board represents the full state of the chess game. Positions are represented
+as ints, 1->a1, 2->a2, etc.
 
 */
 
@@ -15,12 +16,6 @@ A Board represents the full state of the chess game.
 
 #include "BitBoard.h" // for bb_t
 #include "Pieces.h"
-
-// Board positions
-typedef struct boardPos {
-    int     row;  // 1-8
-    char    col;  // a-h
-} Position;
 
 
 // The Board itself.
@@ -84,7 +79,7 @@ bool BlackCastle(Board b);
 //
 // Returns true if the move is possible, false otherwise (no piece at "from",
 // either position is invalid, etc).
-bool IsMoveLegal(Board board, Position from, Position to);
+bool IsMoveLegal(Board board, int from, int to);
 
 
 // Is the current position a soft draw? That is, have there been 50+ quiet
@@ -141,7 +136,7 @@ int WhoWon(Board b);
 //  - to. The square we're moving to.
 //
 // Returns true if the move was made, false if not (because it was illegal).
-bool MakeMove(Board board, Position from, Position to);
+bool MakeMove(Board board, int from, int to);
 
 
 // Unmake a move. That is, mutate the passed Board such that it is exactly

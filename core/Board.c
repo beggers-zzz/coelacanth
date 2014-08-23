@@ -22,8 +22,6 @@ Implementation of the board specification found in "Board.h".
 #include "Pieces.h"
 #include "PieceTransform.h"
 
-// Get the array index corresponding to the passed Position.
-static int ifp(Position p);
 
 Board AllocateBoard() {
     Piece ps[64];
@@ -81,16 +79,7 @@ bool BlackCastle(Board b) {
     return (b->pieces[60] & (b->pieces[54] | b->pieces[63]) & VIRGIN_MASK);
 }
 
-bool IsMoveLegal(Board board, Position from, Position to) {
-    if (from.row < 1 || to.row < 1 ||
-        from.row > 8 || to.row > 8 ||
-        from.col < 'a' || to.col < 'a' ||
-        from.col > 'h' || to.col > 'h') {
-        return false;
-    }
-    // TODO: Make sure we're not moving onto our own piece
-    //       Make sure that's how we can move
-    //       Check if we'd be in check
+bool IsMoveLegal(Board board, int from, int to) {
     return true;
 }
 
@@ -118,26 +107,22 @@ int WhoWon(Board b) {
 }
 
 
-bool MakeMove(Board b, Position from, Position to) {
+bool MakeMove(Board b, int from, int to) {
     MoveStackNode sn;   
-    int fromSquare, toSquare;
 
     if (!IsMoveLegal(b, from, to)) {
         return false;
     }
 
-    fromSquare = ifp(from);
-    toSquare = ifp(to);
-
-    sn.fromSquare = fromSquare;
-    sn.toSquare = toSquare;
-    sn.takenPiece = b->pieces[toSquare];
+    sn.fromSquare = from;
+    sn.toSquare = to;
+    sn.takenPiece = b->pieces[to];
     sn.prevQuietCounter = b->quietMoves;
     sn.prevEnPassant = b->enPassant;
     PushStack(b->moveStack, sn);
 
-    b->pieces[toSquare] = b->pieces[fromSquare] & ~VIRGIN_MASK;
-    b->pieces[fromSquare] = EmptySquare;
+    b->pieces[to] = b->pieces[from] & ~VIRGIN_MASK;
+    b->pieces[from] = Empty;
     // TODO: BB changes and stuff
     // TODO: EP changes
     // TODO: Promotion
@@ -230,7 +215,3 @@ void PrintBoard(Board board) {
     printf("\n");
 }
 
-
-static int ifp(Position p) {
-    return 8*(p.row - 1) + (p.col - 'a');
-}
