@@ -25,8 +25,6 @@ typedef struct MoveStackNode {
     char        takenPiece;
     int         prevQuietCounter;
     int         prevEnPassant;
-    bool        wCastle;
-    bool        bCastle;
 } MoveStackNode;
 
 struct stackRec;

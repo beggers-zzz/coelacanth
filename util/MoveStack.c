@@ -85,8 +85,6 @@ bool sneq(MoveStackNode s1, MoveStackNode s2) {
            s1.toSquare == s2.toSquare &&
            s1.takenPiece == s2.takenPiece &&
            s1.prevQuietCounter == s2.prevQuietCounter &&
-           s1.prevEnPassant == s2.prevEnPassant &&
-           s1.wCastle == s2.wCastle &&
-           s1.bCastle == s2.bCastle;
+           s1.prevEnPassant == s2.prevEnPassant;
 }
  
