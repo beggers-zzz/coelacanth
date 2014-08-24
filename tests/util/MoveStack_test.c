@@ -171,8 +171,6 @@ static MoveStackNode getSN1() {
     sn.takenPiece = '.';
     sn.prevQuietCounter = 10;
     sn.prevEnPassant = -1;
-    sn.wCastle = true;
-    sn.bCastle = false;
 
     return sn;
 }
@@ -184,8 +182,6 @@ static MoveStackNode getSN2() {
     sn.takenPiece = 'k';
     sn.prevQuietCounter = 20;
     sn.prevEnPassant = -1;
-    sn.wCastle = false;
-    sn.bCastle = false;
 
     return sn;
 }
@@ -197,8 +193,6 @@ static MoveStackNode getSN3() {
     sn.takenPiece = 'Q';
     sn.prevQuietCounter = 45;
     sn.prevEnPassant = 25;
-    sn.wCastle = false;
-    sn.bCastle = true;
 
     return sn;
 }
