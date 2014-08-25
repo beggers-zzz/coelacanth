@@ -44,7 +44,7 @@ void FreeBoard(Board board);
 //
 //  - board. The board to set piece promotion on.
 //  - piece. The piece that pawns should be promoted to.
-void SetPromochar(Board board, Piece piece);
+void SetPromoPiece(Board board, Piece piece);
 
 
 // Is it white's turn?
@@ -56,16 +56,65 @@ void SetPromochar(Board board, Piece piece);
 // Returns true if it's white's turn, false if it's black's.
 bool WhiteToMove(Board b);
 
-// Can white castle?
+
+// How many moves has the game gone on for?
 //
-// Returns true if white can castle, false otherwise.
-bool WhiteCastle(Board b);
+// Arguments:
+//
+//  - board: The Board we're examining.
+//
+// Returns an int representing the number of moves that have occured.
+int NumMoves(Board b);
 
 
-// Can black castle?
+// How many of the previous moves have been "quiet moves"? I.e. no pawn pushing
+// or piece-taking.
 //
-// Returns true if black can castle, false otherwise.
-bool BlackCastle(Board b);
+// Arguments:
+//
+//  - board. The Board we're examining.
+//
+// Returns the number of quiet moves on the Board in the most recent run.
+int NumQuietMoves(Board b);
+
+
+// Can white castle King's side?
+//
+// Arguments:
+//
+//  - board. The Board we're examining.
+//
+// Returns true if white can castle towards h, false otherwise.
+bool WhiteCastleKingsSide(Board b);
+
+
+// Can white castle Queen's side?
+//
+//
+// Arguments:
+//
+//  - board. The Board we're examining.
+//
+// Returns true if white can castle towards a, false otherwise.
+bool WhiteCastleQueensSide(Board b);
+
+
+bool BlackCastleKingsSide(Board b);
+
+
+bool BlackCastleQueensSide(Board b);
+
+
+// Pawn that can currently perform an en-passant capture. Given as a board
+// index 0-64.
+//
+// Arguments:
+//
+//  - board. The Board we're examining.
+//
+// Returns an int with the index of the pawn that can perform en passant, or
+// -1 if no such pawn exists.
+int EnPassantPawn(Board b);
 
 
 // Check whether a move is legal, i.e. whether the piece at the first
@@ -82,17 +131,27 @@ bool BlackCastle(Board b);
 bool IsMoveLegal(Board board, int from, int to);
 
 
-// Is the current position a soft draw? That is, have there been 50+ quiet
-// moves in a row (no pawn pushes or captures of any sort) OR has the current
-// position (including castling rights, etc) been repeated at least 2 times
-// before?
+// Get the Board's Zobrist hash.
 //
 // Arguments:
 //
 //  - board. The Board we're examining.
 //
-// Returns true if the Board is a soft draw.
-bool BoardIsSoftDraw(Board b);
+// Returns a uint64_t representing the current Zobrist hash.
+uint64_t ZobristHash(Board b);
+
+
+// Get a pointer to the Zobrist hashes of all the previous positions the
+// board has been in. Note that only positions 0 to (num_moves) - 1 are valid,
+// the rest are undefined. Do NOT free this memory.
+//
+// Arguments:
+//
+//  - board. The Board we're examining.
+//
+// Returns a uint64_t* pointing to an array with all the previous hashes. Use
+// NumMoves() to find out how far along the array is valid.
+uint64_t *HistoricalHashes(Board b);
 
 
 // Is the player to move in check?

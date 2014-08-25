@@ -20,12 +20,13 @@ This file contains the implementation of structs found in "Board.h".
 
 typedef struct boardRec {
     bool       whiteToMove;
-    bool       gameOver;
-    int        enPassant;    // position of pawn that can currently en passant
     int        quietMoves;   // number of quiet moves made in a row
+    int        enPassant;    // position of pawn that can currently en passant
     Piece      promo;        // what should we promote pawns to?
+    bool       gameOver;
+    uint64_t   currentHash;
+    uint64_t   pastHashes[500];  // should be long enough...
     MoveStack  moveStack;
-    // TODO: RoP hash
     bb_t       bbs[12];      // our bitboards
     Piece      pieces[64];   // our piece array
 } BoardRec;
