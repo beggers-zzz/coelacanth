@@ -271,7 +271,7 @@ static int GetPieceZobIndex(Piece p, int pos) {
         index = 11 * 64;
     } else {
         // Empty square
-        index = -1;
+        return -1;
     }
 
     if (p & WHITE_MASK) {
