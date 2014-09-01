@@ -236,7 +236,7 @@ void PrintBoard(Board board) {
 static void ZobristInit(Board b) {
     srand(1229689);  // my student ID number
     for (int i = 0; i < 782; i++) {  // see Board_priv.h
-        b->zobs[i] = (rand() << 32) | rand();  // necessary for 64 bits
+        b->zobs[i] = ((uint64_t) rand() << 32) | rand();  // necessary for 64 bits
     }
 }
 
@@ -278,7 +278,6 @@ static int GetPieceZobIndex(Piece p, int pos) {
         index -= 6 * 64;
     }
 
-
-    return index;
+    return index + pos;
 }
 
