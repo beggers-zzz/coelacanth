@@ -235,21 +235,18 @@ void PrintBoard(Board board) {
 // Hashing stuff
 static void ZobristInit(Board b) {
     srand(1229689);  // my student ID number
-    for (int i = 0; i < 782; i++) {  // see Board_priv.h
+    for (int i = 0; i < 781; i++) {  // see Board_priv.h
         b->zobs[i] = ((uint64_t) rand() << 32) | rand();  // necessary for 64 bits
     }
+    b->zobs[781] = 0;  // Empty square (XORing is faster than conditionals)
 }
 
 static uint64_t ZobristAllPieces(Board b) {
     uint64_t hash = 0;
     const Piece *ps = GetArrayRep(b);
-    int index;
 
     for (int i = 0; i < 64; i++) {
-        index = GetPieceZobIndex(ps[i], i);
-        if (index != -1) {
-            hash ^= b->zobs[index];
-        }
+        hash ^= b->zobs[GetPieceZobIndex(ps[i], i)];
     }
     return hash;
 }
@@ -271,7 +268,7 @@ static int GetPieceZobIndex(Piece p, int pos) {
         index = 11 * 64;
     } else {
         // Empty square
-        return -1;
+        return 781;
     }
 
     if (p & WHITE_MASK) {
