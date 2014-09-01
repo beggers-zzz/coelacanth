@@ -22,6 +22,12 @@ Implementation of the board specification found in "Board.h".
 #include "Pieces.h"
 #include "PieceTransform.h"
 
+// Hashing
+static void ZobristInit(Board b);
+// TODO: Hash from previous board position
+static uint64_t ZobristAllPieces(Board b);
+static int GetPieceZobIndex(Piece p, int pos);
+
 
 Board AllocateBoard() {
     Piece ps[64];
@@ -34,21 +40,23 @@ Board AllocateBoard() {
         return (Board) NULL;
     }
 
-    b->whiteToMove = true;
-    b->gameOver = false;
-    b->enPassant = 0;
-    b->promo = WhiteQueen;
-    b->quietMoves = 0;
     b->moveStack = AllocateStack();
-    // TODO: RoP hash
-
-    memcpy(&b->bbs, &INIT_BOARD_BBREP, sizeof(b->bbs));
-    memcpy(&b->pieces, &ps, sizeof(b->pieces));
-
     if (b->moveStack == NULL) {
         free(b);
         return NULL;
     }
+
+    b->whiteToMove = true;
+    b->gameOver = false;
+    b->enPassant = -1;
+    b->promo = WhiteQueen;
+    b->quietMoves = 0;
+
+    ZobristInit(b);
+    b->hash = ZobristAllPieces(b);
+
+    memcpy(&b->bbs, &INIT_BOARD_BBREP, sizeof(b->bbs));
+    memcpy(&b->pieces, &ps, sizeof(b->pieces));
 
     return b;
 }
@@ -56,7 +64,6 @@ Board AllocateBoard() {
 
 void FreeBoard(Board board) {
     FreeStack(board->moveStack);
-    // TODO Free RoP hash
     free(board);
 }
 
@@ -70,13 +77,22 @@ bool WhiteToMove(Board b) {
     return b->whiteToMove;
 }
 
-bool WhiteCastle(Board b) {
-    //         king            a-rook         h-rook       virgin bits
-    return (b->pieces[4] & (b->pieces[0] | b->pieces[7]) & VIRGIN_MASK);
+// TODO: Make sure they're not being attacked
+bool WhiteCastleKingsSide(Board b) {
+    //         king           h-rook      virgin bits
+    return (b->pieces[4] & b->pieces[7] & VIRGIN_MASK);
 }
 
-bool BlackCastle(Board b) {
-    return (b->pieces[60] & (b->pieces[54] | b->pieces[63]) & VIRGIN_MASK);
+bool WhiteCastleQueensSide(Board b) {
+    return (b->pieces[4] & b->pieces[0] & VIRGIN_MASK);
+}
+
+bool BlackCastleKingsSide(Board b) {
+    return (b->pieces[60] & b->pieces[63] & VIRGIN_MASK);
+}
+
+bool BlackCastleQueensSide(Board b) {
+    return (b->pieces[60] & b->pieces[54] & VIRGIN_MASK);
 }
 
 bool IsMoveLegal(Board board, int from, int to) {
@@ -213,5 +229,56 @@ void PrintBoard(Board board) {
         printf("\n");
     }
     printf("\n");
+}
+
+
+// Hashing stuff
+static void ZobristInit(Board b) {
+    srand(1229689);  // my student ID number
+    for (int i = 0; i < 782; i++) {  // see Board_priv.h
+        b->zobs[i] = (rand() << 32) | rand();  // necessary for 64 bits
+    }
+}
+
+static uint64_t ZobristAllPieces(Board b) {
+    uint64_t hash = 0;
+    const Piece *ps = GetArrayRep(b);
+    int index;
+
+    for (int i = 0; i < 64; i++) {
+        index = GetPieceZobIndex(ps[i], i);
+        if (index != -1) {
+            hash ^= b->zobs[index];
+        }
+    }
+    return hash;
+}
+
+static int GetPieceZobIndex(Piece p, int pos) {
+    int index;
+
+    if (p & PAWN_MASK) {
+        index = 6 * 64;
+    } else if (p & KNIGHT_MASK) {
+        index = 7 * 64;
+    } else if (p & BISHOP_MASK) {
+        index = 8 * 64;
+    } else if (p & ROOK_MASK) {
+        index = 9 * 64;
+    } else if (p & QUEEN_MASK) {
+        index = 10 * 64;
+    } else if (p & KING_MASK) {
+        index = 11 * 64;
+    } else {
+        // Empty square
+        index = -1;
+    }
+
+    if (p & WHITE_MASK) {
+        index -= 6 * 64;
+    }
+
+
+    return index;
 }
 
