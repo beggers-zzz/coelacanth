@@ -79,6 +79,11 @@ bool WhiteToMove(Board b) {
 }
 
 
+int NumMoves(Board b) {
+    return b->numMoves;
+}
+
+
 // TODO: Make sure they're not being attacked
 bool WhiteCastleKingsSide(Board b) {
     //         king           h-rook      virgin bits

@@ -20,6 +20,7 @@ This file contains the implementation of structs found in "Board.h".
 
 typedef struct boardRec {
     bool       whiteToMove;
+    int        numMoves;     // how many moves have happened this game
     int        quietMoves;   // number of quiet moves made in a row
     int        enPassant;    // position of pawn that can currently en passant
     Piece      promo;        // what should we promote pawns to?
