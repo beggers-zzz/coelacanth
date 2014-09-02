@@ -121,6 +121,15 @@ bool IsMoveLegal(Board board, int from, int to) {
 }
 
 
+uint64_t ZobristHash(Board b) {
+    return b->hash;
+}
+
+const uint64_t *HistoricalHashes(Board b) {
+    return b->pastHashes;
+}
+
+
 bool IsPlayerToMoveInCheck(Board b) {
     // TODO
     return false;

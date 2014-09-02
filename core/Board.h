@@ -151,7 +151,7 @@ uint64_t ZobristHash(Board b);
 //
 // Returns a uint64_t* pointing to an array with all the previous hashes. Use
 // NumMoves() to find out how far along the array is valid.
-uint64_t *HistoricalHashes(Board b);
+const uint64_t *HistoricalHashes(Board b);
 
 
 // Is the player to move in check?
