@@ -52,9 +52,10 @@ Board AllocateBoard() {
     b->enPassant = -1;
     b->promo = WhiteQueen;
     b->quietMoves = 0;
+    b->numMoves = 0;
 
     ZobristInit(b);
-    b->hash = ZobristAllPieces(b);
+    b->pastHashes[0] = ZobristAllPieces(b);
 
     memcpy(&b->bbs, &INIT_BOARD_BBREP, sizeof(b->bbs));
     memcpy(&b->pieces, &ps, sizeof(b->pieces));
@@ -122,7 +123,7 @@ bool IsMoveLegal(Board board, int from, int to) {
 
 
 uint64_t ZobristHash(Board b) {
-    return b->hash;
+    return b->pastHashes[b->numMoves];
 }
 
 const uint64_t *HistoricalHashes(Board b) {

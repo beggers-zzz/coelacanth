@@ -25,7 +25,6 @@ typedef struct boardRec {
     int        enPassant;    // position of pawn that can currently en passant
     Piece      promo;        // what should we promote pawns to?
     bool       gameOver;
-    uint64_t   hash;
     uint64_t   pastHashes[500];  // should be long enough...
     uint64_t   zobs[782];       // used for hashing
     MoveStack  moveStack;
