@@ -95,14 +95,13 @@ bool BlackCastleQueensSide(Board b) {
     return (b->pieces[60] & b->pieces[54] & VIRGIN_MASK);
 }
 
-bool IsMoveLegal(Board board, int from, int to) {
-    return 0 <= from && from <= 63 && 0 <= to && to <= 63;
+int EnPassantPawn(Board b) {
+    return b->enPassant;
 }
 
 
-bool BoardIsSoftDraw(Board b) {
-    // TODO
-    return false;
+bool IsMoveLegal(Board board, int from, int to) {
+    return 0 <= from && from <= 63 && 0 <= to && to <= 63;
 }
 
 
@@ -211,8 +210,7 @@ bool BoardEQ(Board b1, Board b2) {
     return b1->whiteToMove == b2->whiteToMove &&
            b1->gameOver == b2->gameOver &&
            b1->enPassant == b2->enPassant &&
-           b1->quietMoves == b2->quietMoves &&
-           StackEQ(b1->moveStack, b2->moveStack);
+           b1->quietMoves == b2->quietMoves;
 }
 
 
@@ -232,7 +230,10 @@ void PrintBoard(Board board) {
 }
 
 
-// Hashing stuff
+// Hashing stuff. There are constants on constants on constants hard-coded into
+// these functions. That's because, for the most part, defining them symbolically
+// would be a waste since they're only used once. Additionally we can count on
+// the length of b->zobs being 782.
 static void ZobristInit(Board b) {
     srand(1229689);  // my student ID number
     for (int i = 0; i < 781; i++) {  // see Board_priv.h
@@ -248,6 +249,7 @@ static uint64_t ZobristAllPieces(Board b) {
     for (int i = 0; i < 64; i++) {
         hash ^= b->zobs[GetPieceZobIndex(ps[i], i)];
     }
+
     return hash;
 }
 
