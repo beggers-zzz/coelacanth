@@ -84,6 +84,11 @@ int NumMoves(Board b) {
 }
 
 
+int NumQuietMoves(Board b) {
+    return b->quietMoves;
+}
+
+
 // TODO: Make sure they're not being attacked
 bool WhiteCastleKingsSide(Board b) {
     //         king           h-rook      virgin bits
