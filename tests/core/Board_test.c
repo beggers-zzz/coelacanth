@@ -10,6 +10,7 @@ Tests the Board.
 #include <check.h>
 
 #include "Board.h"
+#include "Board_priv.h"
 #include "Board_test.h"
 
 
