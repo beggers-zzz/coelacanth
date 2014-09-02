@@ -22,6 +22,7 @@ Implementation of the board specification found in "Board.h".
 #include "Pieces.h"
 #include "PieceTransform.h"
 
+
 // Hashing
 static void ZobristInit(Board b);
 // TODO: Hash from previous board position
@@ -77,23 +78,28 @@ bool WhiteToMove(Board b) {
     return b->whiteToMove;
 }
 
+
 // TODO: Make sure they're not being attacked
 bool WhiteCastleKingsSide(Board b) {
     //         king           h-rook      virgin bits
     return (b->pieces[4] & b->pieces[7] & VIRGIN_MASK);
 }
 
+
 bool WhiteCastleQueensSide(Board b) {
     return (b->pieces[4] & b->pieces[0] & VIRGIN_MASK);
 }
+
 
 bool BlackCastleKingsSide(Board b) {
     return (b->pieces[60] & b->pieces[63] & VIRGIN_MASK);
 }
 
+
 bool BlackCastleQueensSide(Board b) {
     return (b->pieces[60] & b->pieces[54] & VIRGIN_MASK);
 }
+
 
 int EnPassantPawn(Board b) {
     return b->enPassant;
@@ -242,6 +248,7 @@ static void ZobristInit(Board b) {
     b->zobs[781] = 0;  // Empty square (XORing is faster than conditionals)
 }
 
+
 static uint64_t ZobristAllPieces(Board b) {
     uint64_t hash = 0;
     const Piece *ps = GetArrayRep(b);
@@ -252,6 +259,7 @@ static uint64_t ZobristAllPieces(Board b) {
 
     return hash;
 }
+
 
 static int GetPieceZobIndex(Piece p, int pos) {
     int index;
