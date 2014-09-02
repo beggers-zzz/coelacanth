@@ -26,7 +26,7 @@ Implementation of the board specification found in "Board.h".
 // Hashing
 static void ZobristInit(Board b);
 // TODO: Hash from previous board position
-static uint64_t ZobristAllPieces(Board b);
+static uint64_t ZobristEntireBoard(Board b);
 static int GetPieceZobIndex(Piece p, int pos);
 
 
@@ -55,7 +55,7 @@ Board AllocateBoard() {
     b->numMoves = 0;
 
     ZobristInit(b);
-    b->pastHashes[0] = ZobristAllPieces(b);
+    b->pastHashes[0] = ZobristEntireBoard(b);
 
     memcpy(&b->bbs, &INIT_BOARD_BBREP, sizeof(b->bbs));
     memcpy(&b->pieces, &ps, sizeof(b->pieces));
@@ -269,12 +269,37 @@ static void ZobristInit(Board b) {
 }
 
 
-static uint64_t ZobristAllPieces(Board b) {
+static uint64_t ZobristEntireBoard(Board b) {
     uint64_t hash = 0;
     const Piece *ps = GetArrayRep(b);
 
+    // First the pieces
     for (int i = 0; i < 64; i++) {
         hash ^= b->zobs[GetPieceZobIndex(ps[i], i)];
+    }
+
+    // Now the castling rights
+    if (WhiteCastleKingsSide(b)) {
+        hash ^= b->zobs[12 * 64];
+    }
+    if (WhiteCastleQueensSide(b)) {
+        hash ^= b->zobs[12 * 64 + 1];
+    }
+    if (BlackCastleKingsSide(b)) {
+        hash ^= b->zobs[12 * 64 + 2];
+    }
+    if (BlackCastleQueensSide(b)) {
+        hash ^= b->zobs[12 * 64 + 3];
+    }
+
+    // And en passant
+    if (EnPassantPawn(b) != -1) {
+        hash ^= b->zobs[11 * 64 + 3 + EnPassantPawn(b)];
+    }
+
+    // And whose turn it is
+    if (WhiteToMove(b)) {
+        hash ^= b->zobs[780];
     }
 
     return hash;
