@@ -11,17 +11,10 @@ To build coelacanth, first get the code and run `scripts/setup` from the root di
 
 Developed/tested on an Intel(R) Core(TM) i7-3537U CPU @ 2.00GHz running 64-bit Arch Linux.
 
-Layout
-------
+Playing
+-------
 
-Here's the (tentative) layout:
-  - `Coelacanth.c` Main function.
-  - `Tests.c`: Runner for the test suites.
-  - `core/`: Core functionality (board representation, move searching/deciding).
-  - `scripts/`: Helpful scripts that aren't part of the finished program (e.g. bitboard generation).
-  - `static/`: Global constants, such as the initial board configuration, pre-computed bitboards of what pieces can attack from where, etc. This may be refactored out.
-  - `tests/`: Tests.
-  - `util/`: General data structures such as hash tables, etc to be used by multiple things in the program. This also may be refactored out.
+Once you've built the executable and all the tests are passing, just run `./coelacanth`. Move input is of the form "e2e4", NOT algebraic notation.
 
 Issues
 ------
