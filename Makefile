@@ -2,7 +2,7 @@ CC = gcc
 CFLAGS = -g -Wall -W -Wextra -Wimplicit-function-declaration -Wpedantic -std=gnu11 -O3
 LDFLAGS = -flto -O3
 
-DIRS := core static util
+DIRS := board brain static util
 TEST_DIR := tests
 OBJ_DIR := obj
 
