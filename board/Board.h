@@ -105,15 +105,14 @@ bool BlackCastleKingsSide(Board b);
 bool BlackCastleQueensSide(Board b);
 
 
-// Pawn that can currently perform an en-passant capture. Given as a board
-// index 0-64.
+// Row of the pawn that just moved forward 2 squares. -1 if no such pawn
+// exists.
 //
 // Arguments:
 //
 //  - board. The Board we're examining.
 //
-// Returns an int with the index of the pawn that can perform en passant, or
-// -1 if no such pawn exists.
+// Returns -1 OR [1-8].
 int EnPassantPawn(Board b);
 
 
