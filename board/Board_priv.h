@@ -22,7 +22,7 @@ typedef struct boardRec {
     bool       whiteToMove;
     int        numMoves;     // how many moves have happened this game
     int        quietMoves;   // number of quiet moves made in a row
-    int        enPassant;    // position of pawn that can currently en passant
+    int        enPassant;    // row # (1-8) of pawn that just moved forward 2
     Piece      promo;        // what should we promote pawns to?
     bool       gameOver;
     uint64_t   pastHashes[500];  // should be long enough...
