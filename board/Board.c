@@ -213,13 +213,12 @@ Board BoardCopy(Board b) {
     nb->promo = b->promo;
 
     nb->moveStack = StackCopy(b->moveStack);
-
-    memcpy(&nb->bbs, &b->bbs, sizeof(nb->bbs));
-    memcpy(&nb->pieces, &b->pieces, sizeof(nb->pieces));
-
     if (nb->moveStack == NULL) {
         free(nb);
     }
+
+    memcpy(&nb->bbs, &b->bbs, sizeof(nb->bbs));
+    memcpy(&nb->pieces, &b->pieces, sizeof(nb->pieces));
 
     return nb;
 }
